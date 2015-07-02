@@ -1,0 +1,34 @@
+<html>
+	<head>
+		<style>
+	#wheel{
+  margin:100px 100px;
+}
+	</style>
+	</head>
+	<body>
+
+	<script src="scripts/animation.js"></script>
+	<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+	<script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+	<script type="text/javascript" src="scripts/keypress.js"></script>
+	<script>
+	keypress.sequence_combo("r i z z o", function() {
+		$("img").replaceWith("<img src='images/rizzo.jpg'>");
+		
+	}, true);
+	keypress.sequence_combo("t h e o", function() {
+		$("img").replaceWith("<img src='images/andrew.jpg'>");
+		
+	}, true);
+	keypress.sequence_combo("w h e e l", function() {
+		$("img").replaceWith("<img src='images/wheel.png' id='wheel'>");
+		setInterval(spinWheel, 1);
+
+	}, true);
+	
+	</script>
+	<img src="images/wheel.png" id="wheel">
+	</body>
+	
+</html>

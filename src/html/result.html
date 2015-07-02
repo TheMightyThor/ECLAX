@@ -1,0 +1,14 @@
+{% autoescape true %}
+<html>
+<head>
+</head>
+<body>
+	<h1>SelectALL</h1> </br>
+	<ul>
+	{% for code in codes %}
+		<li>{{ code }} </li>
+	{% endfor %}
+	</ul>
+</body>
+</html>
+{% endautoescape %}

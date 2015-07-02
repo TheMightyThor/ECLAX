@@ -1,0 +1,32 @@
+{% autoescape true %}
+<html>
+	<head>
+	</head>
+	<body>
+	<h1>
+	Database Transactions
+	</h1>	
+		<form name="inputdata" action="/database/" method="post">
+			<select name="models">
+			{% for model in models %}
+				<option name="{{ model }}" value="{{ model }}">{{ model }}</option>
+			{% endfor %}	
+			</select>
+			<select name="transactions">
+			{% for transaction in transactions %}
+			  <option name="{{ transaction }}" value="{{ transaction }}">{{ transaction }}</option>
+					{% endfor %}
+			</select>			
+			<input type="submit" id="delete" name="deleteMcc" value="post" >
+		</form>
+		
+		<h1>RESULTS</h1>
+		<ul>
+		{% for result in results %}
+			<li>{{ result }} </li>
+			{% endfor %}
+		</ul>
+			
+	</body>
+</html>
+{% endautoescape %}

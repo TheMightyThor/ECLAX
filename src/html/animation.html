@@ -1,0 +1,80 @@
+<html>
+<head>
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+  <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+  <script src="scripts/animation.js"></script>
+  <script src="scripts/snowstorm.js"></script>
+  <link href="stylesheets/font-awesome.css" rel="stylesheet">
+<!--   <script src="scripts/cogentSolutions.js"></script> -->
+  <script type="text/javascript" src="scripts/keypress.js"></script>
+ 
+  <style>
+  body { background-color: #000}
+  #grouping{ align-content: center; margin-left: 5%; padding: 5%;}
+  	h1 {color: #FFF; font-size: .5in; margin-left: auto; margin-right: auto; text-align: center;}
+    .toggler { width: 90%; height: 500px; position: inherit; margin: auto; }
+    #effect { width: 100%; height: 500px; padding: 0.05em; position: inherit; }
+    #cogent{ height: 200px; position: relative; float: left;}
+    #wheels {height:250px; width: 250px; float: left;}
+    #topWheel{height:75px; width: 75px; margin-bottom: 25px; left: -25px;}
+    #bigWheel { margin: 0; padding: 0.1em; text-align: center; width: 150px; height: 150px; float: left; margin-top:25px;} 
+    #bottomWheel{ height: 75px; width: 75px; margin-top: 25px;}
+    .ui-effects-transfer { border: 2px dotted gray; }
+    p {height: 100px; color: #FFF; font-size: .25in; width: auto; font-family:sans-serif; font:italic; text-align: center;}
+  </style>
+  <script>
+  //I made this easter egg pretty easy..................
+keypress.sequence_combo("c o g e n t", function() {
+	window.location.assign("/login");
+}, true);
+	
+    function runEffect() {
+    	
+      var selectedEffect = "slide" 
+      // most effect types need no options passed by default
+      var options = {};
+      // some effects have required parameters
+       
+      // run the effect
+      $( "#effect" ).effect( selectedEffect, options, 4000, callback );
+      
+    };
+      
+ 	function glide(){
+ 		
+ 		$("#effect").animate({ "left": "+=500px" }, 4000 );
+ 		
+ 	};
+
+    function callback() {
+      setTimeout(function() {
+//         $( "#effect" ).removeAttr( "style" ).hide().fadeIn();
+        $( "#effect" ).fadeIn();
+      }, 1000 );
+    };
+  
+  </script>
+</head>
+<body onload="runEffect()">
+ 
+<div class="toggler">
+
+  <div id="effect" class="ui-widget-content ui-corner-all">
+  <!-- <h1 id="happy"></h1>-->
+  <div id="grouping">
+  	<div id="wheels">
+    	<img id="topWheel" src="images/wheel.png" id="wheel">
+	    <img id="bigWheel" src="images/wheel.png">
+	    <img id ="bottomWheel" src="images/wheel.png" id="wheel">
+	    <script>spinWheels();</script>
+    </div>
+    <img id="cogent" src="images/cogentsolutions.png">
+   </div>
+  </div>
+  <p>Can you figure out the easter egg?  Email support@cogenttestapp.appspot.com to request access</p>
+</div>
+
+
+
+</body>
+</html>
