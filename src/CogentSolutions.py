@@ -206,7 +206,7 @@ class NumberCrunch(webapp2.RequestHandler):
         
         
 application = webapp2.WSGIApplication([
-                                       ('/', Animation),
+                                       ('/', MainPage),
                                        ('/login', LogIn),
                                        ('/about', About),
                                        ('/news', News),

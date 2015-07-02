@@ -53,7 +53,7 @@
 body {
 	margin:0;
 	font-family: 'exoregular';
-	background:url(../images/bg-body.jpg) repeat-x #060606;
+	background:url(../images/bg-body.jpg) repeat-x #B6B6B4;
 }
 a {
 	outline:none;
@@ -63,33 +63,37 @@ a img {
 	display:block;
 }
 .page-login {
-	background-color: #111;
+	background-color: #B6B6B4;
 }
 .page-home {
-	background:url(../images/blueMatrix.jpeg) no-repeat center 100px;
+	background:url(../images/EcLaxTeam.jpg) no-repeat center -250px;
 }
 .page-about {
-	background:url(../images/blueMatrix.jpeg) no-repeat center 108px;
+	background:url(../images/EcLaxTeam.jpg) no-repeat center 108px;
 }
 .page-news {
-	background:url(../images/blueMatrix.jpeg) no-repeat center 108px;
+	background:url(../images/EcLaxTeam.jpg) no-repeat center 108px;
 }
 .page-contact, .page-gallery {
-	background:url(../images/blueMatrix.jpeg) no-repeat center 108px;
+	background:url(../images/EcLaxTeam.jpg) no-repeat center 108px;
 }
 /*------------------------- Header -------------------------*/
 .header {
-	background:url(../images/bg-header.jpg) no-repeat center top;
-	min-height:624px;
+/* 	background:url(../images/bg-header.jpg) no-repeat center top; */
+/* 	background:rbga(255,255,255,.5) c; */
+	background-color:rgba(255,255,255,0.25);
 }
 .header div {
 	margin:0 auto 0 auto;
 	width:960px;
 }
 .header div a#logo {
-	display:inline-block;
+color:#FFF;
 	float:left;
-	margin:10px 0 0 1px;
+	font-family:exoextralight;
+	font-size:14px;
+	line-height:16px;
+	margin:25px 0 0;
 }
 .header div span {
 	color:#FFF;
@@ -97,7 +101,7 @@ a img {
 	font-family:exoextralight;
 	font-size:14px;
 	line-height:16px;
-	margin:46px 0 0;
+	margin:25px 0 0;
 }
 .header div ul {
 	clear:both;
@@ -115,6 +119,7 @@ a img {
 	color:#040101;
 	font-family:"Myriad Pro", "Gill Sans", "Gill Sans MT", Calibri, sans-serif;
 	text-shadow:0 1px 0 #d7f4f7;
+	
 }
 .header div ul li.selected a:hover {
 	color:#040101;
@@ -124,7 +129,7 @@ a img {
 	text-shadow:0 1px 0 #bef3f8;
 }
 .header div ul li {
-	background:url(../images/interface.png) no-repeat 0 -86px;
+	background-color:rgba(255,255,255,0.4);
 	float:left;
 	height:48px;
 	width:240px;
@@ -152,7 +157,7 @@ a img {
 }
 .header div div.login {
 	width:800;
-	margin:0 auto 0 auto;
+	margin:100 auto 0 auto;
   
 }
 .header div div.login div.inputs select{
@@ -273,7 +278,7 @@ a img {
 	width:630px;
 }
 .body .home h4 {
-	background:none #102223;
+	background-color:rgba(255,255,255,0.25);
 	color:#fefafa;
 	font-family:exobolditalic;
 	font-size:18px;
@@ -353,7 +358,7 @@ a img {
 	width:310px;
 }
 .body .sidebar h4 {
-	background:none #1d3536;
+	background-color:rgba(255,255,255,0.25);
 	color:#FEFAFA;
 	font-family:exobolditalic;
 	font-size:18px;
@@ -446,7 +451,6 @@ a img {
 	background:url(../images/interface.png) no-repeat 0 -184px;
 }
 .body .section {
-	border-top:6px solid #102223;
 	clear:both;
 	overflow:hidden;
 	padding:36px 0 0;
@@ -457,7 +461,7 @@ a img {
 	width:630px;
 }
 .body .section div h4 {
-	background:none repeat scroll 0 0 #1D3536;
+	background-color:rgba(255,255,255,.3);
 	color:#FEFAFA;
 	font-family:exobolditalic;
 	font-size:18px;
@@ -469,7 +473,6 @@ a img {
 	text-indent:25px;
 }
 .body .section div:first-child ul {
-	background:none #102223;
 	list-style:none;
 	margin:0;
 	overflow:hidden;
@@ -483,7 +486,6 @@ a img {
 	border:2px solid #2f5455;
 }
 .body .section div.connect {
-	background:none #102223;
 	float:right;
 	width:310px;
 }
@@ -1005,19 +1007,20 @@ a img {
 	padding-left:0;
 }
 .footer ul li {
-	background:url(../images/border-footer-nav.png) no-repeat left 6px;
+/* 	background:url(../images/border-footer-nav.png) no-repeat left 6px; */
+	background-color:rgba(255,255,255,.4);
 	float:left;
 	padding:0 10px;
 }
 .footer ul li a {
-	color:#435e5f;
+	background-color:rgba(255,255,255,.4);
 	font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
 	font-size:12px;
 	line-height:16px;
 	text-decoration:none;
 }
 .footer p {
-	color:#435e5f;
+	background-color:rgba(255,255,255,.4);
 	float:right;
 	font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
 	font-size:12px;

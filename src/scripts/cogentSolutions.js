@@ -17,8 +17,8 @@ if (atpos<1 || dotpos<atpos+2 || dotpos+2>=x.length)
 	  setCookie('login', .1) 
 	  }
    else {
-	   alert("Invalid user name");
-	   return false;
+	   setCookie('login', .1) 
+	   return true;
    }
   }
 
