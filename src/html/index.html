@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <!-- Website template by freewebsitetemplates.com -->
+{% autoescape true %}
 <html >
 <script type="text/javascript" src="scripts/cogentSolutions.js"></script>
 <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
@@ -18,19 +19,19 @@
 	<div class="page page-home">
 		<div class="header">
 			<div>
-				<a href="index" id="logo"><h1>East Cobb Lacrosse</h1></a> <span>Logged in as Hog {{ name }}</span>
+				<a href="index" id="logo"><h1 style="font-size:75px; color:black; text-align:center;">East Cobb Lacrosse</h1></a> <span>Logged in as Hog {{ name }}</span>
 				<ul>
 					<li class="selected">
-						<a href="index">Home</a><span>Casa</span>
+						<a href="index">Home</a>
 					</li>
 					<li>
-						<a href="about">About</a> <span>Aboot us, eh?</span>
+						<a href="about">About</a> 
 					</li>
 					<li>
-						<a href="news">Solutions</a> <span>Custom Software</span>
+						<a href="news">Calendar</a> 
 					</li>
 					<li>
-						<a href="contact">Contact</a> <span>Shoot us a message</span>
+						<a href="contact">Contact</a>
 					</li>
 				</ul>
 			</div>
@@ -39,76 +40,83 @@
 		
 		</p>
 		<div class="body">
+		<div id="spacer">
+			<p></p>
+		</div>
 			<div class="home">
 				<h4>Latest News</h4>
 				<ul>
+				{% for item in news %}
 					<li>
-						<a href="news"><img src="/images/wheel.png" alt="" width ="50px" height="50px"></a>
+						<a href="news"><img src="/images/teamcrest.jpg" alt="" width ="75px" height="75px" style="opacity:.7"></a>
 						<div>
-							<h3>News Title One Example Title</h3>
-							<span>Posted on 12/12/12</span>
+							<h3>{{ item.title }}</h3>
+							<span>{{ item.author }}</span> <br/> <span>{{ item.date }}</span>
 							<p>
-								Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus dapibus fermentum elit. Suspendisse
+								{{ item.message }}
 							</p>
 							<a href="news">Read more&#62;&#62;</a>
 						</div>
 					</li>
-					<li>
-						<a href="news"><img src="/images/wheel.png" alt="" width ="50px" height="50px"></a>
-						<div>
-							<h3>News Title One Example Title</h3>
-							<span>Posted on 12/12/12</span>
-							<p>
-								Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus dapibus fermentum elit. Suspendisse
-							</p>
-							<a href="news">Read more&#62;&#62;</a>
-						</div>
-					</li>
-					<li>
-						<a href="news"><img src="/images/wheel.png" alt="" width ="50px" height="50px"></a>
-						<div>
-							<h3>News Title One Example Title</h3>
-							<span>Posted on 12/12/12</span>
-							<p>
-								Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus dapibus fermentum elit. Suspendisse
-							</p>
-							<a href="news">Read more&#62;&#62;</a>
-						</div>
-					</li>
-					<li>
-						<a href="news"><img src="/images/wheel.png" alt="" width ="50px" height="50px"></a>
-						<div>
-							<h3>News Title One Example Title</h3>
-							<span>Posted on 12/12/12</span>
-							<p>
-								Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus dapibus fermentum elit. Suspendisse
-							</p>
-							<a href="news">Read more&#62;&#62;</a>
-						</div>
-					</li>
-					<li>
-						<a href="news"><img src="/images/wheel.png" alt="" width ="50px" height="50px"></a>
-						<div>
-							<h3>News Title One Example Title</h3>
-							<span>Posted on 12/12/12</span>
-							<p>
-								Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus dapibus fermentum elit. Suspendisse
-							</p>
-							<a href="news">Read more&#62;&#62;</a>
-						</div>
-					</li>
-					<li>
-						<a href="news"><img src="/images/wheel.png" alt="" width ="50px" height="50px"></a>
-						<div>
-							<h3>News Title One Example Title</h3>
-							<span>Posted on 12/12/12</span>
-							<p>
-								Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus dapibus fermentum elit. Suspendisse
-							</p>
-							<a href="news">Read more&#62;&#62;</a>
-						</div>
-					</li>
-				</ul>
+					{% endfor %}
+					</ul>
+<!-- 					<ul> -->
+<!-- 					<li> -->
+<!-- 						<a href="news"><img src="/images/wheel.png" alt="" width ="50px" height="50px"></a> -->
+<!-- 						<div> -->
+<!-- 							<h3>News Title One Example Title</h3> -->
+<!-- 							<span>Posted on 12/12/12</span> -->
+<!-- 							<p> -->
+<!-- 								Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus dapibus fermentum elit. Suspendisse -->
+<!-- 							</p> -->
+<!-- 							<a href="news">Read more&#62;&#62;</a> -->
+<!-- 						</div> -->
+<!-- 					</li> -->
+<!-- 					<li> -->
+<!-- 						<a href="news"><img id="crestbullet" src="/images/teamcrest.jpg" alt="" width ="50px" height="50px" style="opacity:.5"></a> -->
+<!-- 						<div> -->
+<!-- 							<h3>News Title One Example Title</h3> -->
+<!-- 							<span>Posted on 12/12/12</span> -->
+<!-- 							<p> -->
+<!-- 								Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus dapibus fermentum elit. Suspendisse -->
+<!-- 							</p> -->
+<!-- 							<a href="news">Read more&#62;&#62;</a> -->
+<!-- 						</div> -->
+<!-- 					</li> -->
+<!-- 					<li> -->
+<!-- 						<a href="news"><img src="/images/wheel.png" alt="" width ="50px" height="50px"></a> -->
+<!-- 						<div> -->
+<!-- 							<h3>News Title One Example Title</h3> -->
+<!-- 							<span>Posted on 12/12/12</span> -->
+<!-- 							<p> -->
+<!-- 								Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus dapibus fermentum elit. Suspendisse -->
+<!-- 							</p> -->
+<!-- 							<a href="news">Read more&#62;&#62;</a> -->
+<!-- 						</div> -->
+<!-- 					</li> -->
+<!-- 					<li> -->
+<!-- 						<a href="news"><img src="/images/wheel.png" alt="" width ="50px" height="50px"></a> -->
+<!-- 						<div> -->
+<!-- 							<h3>News Title One Example Title</h3> -->
+<!-- 							<span>Posted on 12/12/12</span> -->
+<!-- 							<p> -->
+<!-- 								Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus dapibus fermentum elit. Suspendisse -->
+<!-- 							</p> -->
+<!-- 							<a href="news">Read more&#62;&#62;</a> -->
+<!-- 						</div> -->
+<!-- 					</li> -->
+<!-- 					<li> -->
+<!-- 						<a href="news"><img src="/images/wheel.png" alt="" width ="50px" height="50px"></a> -->
+<!-- 						<div> -->
+<!-- 							<h3>News Title One Example Title</h3> -->
+<!-- 							<span>Posted on 12/12/12</span> -->
+<!-- 							<p> -->
+<!-- 								Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus dapibus fermentum elit. Suspendisse -->
+<!-- 							</p> -->
+<!-- 							<a href="news">Read more&#62;&#62;</a> -->
+<!-- 						</div> -->
+<!-- 					</li> -->
+<!-- 				</ul> -->
 			</div>
 			<div class="sidebar">
 				<h4>Upcoming Events</h4>
@@ -189,3 +197,4 @@
 </body>
 
 </html>
+{% endautoescape %}

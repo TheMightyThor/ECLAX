@@ -58,6 +58,11 @@ body {
 a {
 	outline:none;
 }
+#crestbullet{
+	opacity:.5;
+	height:50px;
+	width:50px;
+}
 a img {
 	border:0;
 	display:block;
@@ -81,19 +86,20 @@ a img {
 .header {
 /* 	background:url(../images/bg-header.jpg) no-repeat center top; */
 /* 	background:rbga(255,255,255,.5) c; */
-	background-color:rgba(255,255,255,0.25);
+/* 	background-color:rgba(255,255,255,0.25); */
 }
 .header div {
 	margin:0 auto 0 auto;
 	width:960px;
+	background-color:rgba(255,255,255,0.7);
 }
 .header div a#logo {
-color:#FFF;
 	float:left;
 	font-family:exoextralight;
-	font-size:14px;
 	line-height:16px;
 	margin:25px 0 0;
+	width:75%;
+	
 }
 .header div span {
 	color:#FFF;
@@ -102,6 +108,7 @@ color:#FFF;
 	font-size:14px;
 	line-height:16px;
 	margin:25px 0 0;
+	width:25%;
 }
 .header div ul {
 	clear:both;
@@ -111,14 +118,13 @@ color:#FFF;
 	padding:34px 0 0;
 }
 .header div ul li.selected {
-	background:url(../images/interface.png) no-repeat 0 -135px;
 	height:48px;
 	width:240px;
+	opacity:.3;
 }
 .header div ul li.selected a {
-	color:#040101;
 	font-family:"Myriad Pro", "Gill Sans", "Gill Sans MT", Calibri, sans-serif;
-	text-shadow:0 1px 0 #d7f4f7;
+	font-size:30px;
 	
 }
 .header div ul li.selected a:hover {
@@ -127,12 +133,13 @@ color:#FFF;
 .header div ul li.selected span {
 	color:#084547;
 	text-shadow:0 1px 0 #bef3f8;
+	text-align:center;
 }
 .header div ul li {
-	background-color:rgba(255,255,255,0.4);
+	background-color:rgba(0,0,40,0.7);
 	float:left;
 	height:48px;
-	width:240px;
+	width:25%;
 }
 .header div ul li a {
 	color:#fff;
@@ -268,6 +275,9 @@ color:#FFF;
 	margin:auto auto auto auto;
 	padding:35px 0 0;
 	width:960px;
+}
+.body #spacer{
+	height:500px;
 }
 .ui-menu-item{
 	color: #FFF;

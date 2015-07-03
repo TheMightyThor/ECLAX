@@ -42,9 +42,10 @@ class MainPage(webapp2.RequestHandler):
         userfromdb = new_userKey.get()    
         global CURRENT_USER_NAME
         CURRENT_USER_NAME = userfromdb.username
-            
+        currentNews = ['TestTile1', 'TestTitle2', 'TestTile3']    
         template_values = {
             'name': CURRENT_USER_NAME,
+            'news' : currentNews,
         }
         
         template = JINJA_ENVIRONMENT.get_template('html/index.html')
@@ -53,8 +54,19 @@ class MainPage(webapp2.RequestHandler):
         
                                                     
     def get(self):
+        '''new_message = Message(parent=messages_key('Messages'))
+        new_message.populate(author = 'andrew',
+                             email = 'andrewtheobald43@gmail.com',
+                             title = 'test title',
+                             message = ' short message about testing the db',
+                             )
+        new_message.put()'''
+        message_query = Message.query(
+            ancestor=messages_key('Messages')).order(-Message.date)
+        messages = message_query.fetch(5) 
         template_values = {
             'name': CURRENT_USER_NAME,
+            'news' : messages,
         }
         template = JINJA_ENVIRONMENT.get_template('html/index.html')
         self.response.write(template.render(template_values))
@@ -95,10 +107,10 @@ class News (webapp2.RequestHandler):
     
     def post(self):
         new_message = Message(parent=messages_key('Messages'))
-        new_message.populate(author = self.request.get('author'),
-                             email = self.request.get('email'),
-                             title = self.request.get('title'),
-                             message = self.request.get('message'),
+        new_message.populate(author = 'andrew',
+                             email = 'andrewtheobald43@gmail.com',
+                             title = 'test title',
+                             message = ' short message about testing the db',
                              )
         new_message.put()
         
