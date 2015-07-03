@@ -55,6 +55,11 @@ body {
 	font-family: 'exoregular';
 	background:url(../images/bg-body.jpg) repeat-x #B6B6B4;
 }
+#dataContainer {
+    overflow: scroll;
+    background-color: #eee;
+    height:500px;
+}
 a {
 	outline:none;
 }
@@ -71,7 +76,7 @@ a img {
 	background-color: #B6B6B4;
 }
 .page-home {
-	background:url(../images/EcLaxTeam.jpg) no-repeat center -250px;
+	background:url(../images/EcLaxTeam.jpg) no-repeat center -385px fixed;
 }
 .page-about {
 	background:url(../images/EcLaxTeam.jpg) no-repeat center 108px;
@@ -93,29 +98,30 @@ a img {
 	width:960px;
 	background-color:rgba(255,255,255,0.7);
 }
-.header div a#logo {
+.header div h1#logo {
 	float:left;
 	font-family:exoextralight;
 	line-height:16px;
 	margin:25px 0 0;
 	width:75%;
-	
+	padding-top:25px;
+	font-size:75px; 
+	color:black; 
+	text-align:center;
+	padding-bottom:25px;
 }
-.header div span {
-	color:#FFF;
-	float:right;
-	font-family:exoextralight;
-	font-size:14px;
+.header div div#login {
 	line-height:16px;
 	margin:25px 0 0;
 	width:25%;
+	float:right;
 }
 .header div ul {
 	clear:both;
 	list-style:none;
 	margin:0;
 	overflow:hidden;
-	padding:34px 0 0;
+	padding:1px 0 0;
 }
 .header div ul li.selected {
 	height:48px;
@@ -125,7 +131,7 @@ a img {
 .header div ul li.selected a {
 	font-family:"Myriad Pro", "Gill Sans", "Gill Sans MT", Calibri, sans-serif;
 	font-size:30px;
-	
+	font-family:exolightitalic;
 }
 .header div ul li.selected a:hover {
 	color:#040101;
@@ -152,6 +158,7 @@ a img {
 	margin:12px 0 0 10px;
 	text-decoration:none;
 	text-shadow:0 1px 0 #3b3939;
+	font-size:30px;
 }
 .header div ul li span {
 	color:#67989a;
@@ -167,7 +174,7 @@ a img {
 	margin:100 auto 0 auto;
   
 }
-.header div div.login div.inputs select{
+.header div div#login select{
 	background:url(../images/bg-transparent-title.png);
 	backgournd-color:#111;
 	color:#fff;
@@ -178,10 +185,10 @@ a img {
 	letter-spacing:.05em;
  	margin:30px 15% 0 15%; 
 	text-indent:15px;
-	width:654px;
+	width:25%;
 	border:none;
 }
-.header div div.login div.inputs option{
+.header div div#login option{
 	background:url(../images/bg-transparent-title.png);
 	color:#111;
 	font-family:exobolditalic;
@@ -191,35 +198,31 @@ a img {
 	letter-spacing:.05em;
  	margin:30px 15% 0 15%; 
 	text-indent:15px;
-	width:654px;
+	width:25%;
 	border:none;
 }
-.header div div.login div.inputs input{
-	background:url(../images/bg-transparent-title.png);
+.header div div#login input{
+	background-color:rgba(0,0,40,0.7);
 	color:#fff;
 	font-family:exobolditalic;
-	font-size:35px;
+	font-size:15px;
 	font-weight:400;
-	height:78px;
+	height:28px;
 	letter-spacing:.05em;
- 	margin:30px 15% 0 15%; 
 	text-indent:15px;
-	width:654px;
+	width:100%;
 	border:none;
 }
-.header div div.login div.submit input{
+.header div div#login div.submit input{
 	background:none #000;
 	color:#8dd6dd;
 	display:block;
 	font-family:exobolditalic;
-	font-size:20px;
-	height:42px;
+	font-size:15px;
 	letter-spacing:.05em;
-	line-height:45px;
 	margin:30px;
 	text-align:center;
 	text-decoration:none;
-	width:174px;
 	float:right;
 	border:none;
 }
@@ -280,16 +283,17 @@ a img {
 	height:500px;
 }
 .ui-menu-item{
-	color: #FFF;
+	color: #111;
 }
 .body .home {
 	float:left;
 	margin:0 20px 17px 0;
 	width:630px;
+	background-color:rgba(255,255,255,0.65);
 }
 .body .home h4 {
-	background-color:rgba(255,255,255,0.25);
-	color:#fefafa;
+	background-color:rgba(255,255,255,0.35);
+	color:#111;
 	font-family:exobolditalic;
 	font-size:18px;
 	font-weight:400;
@@ -324,7 +328,7 @@ a img {
 	width:209px;
 }
 .body .home ul li div span {
-	color:#74a1a3;
+	color:#111;
 	display:block;
 	font-family:exoregular;
 	font-size:10px;
@@ -332,7 +336,7 @@ a img {
 	line-height:5px;
 }
 .body .home ul li div p {
-	color:#97c2c5;
+	color:#111;
 	font-family:exoregular;
 	font-size:12px;
 	letter-spacing:.05em;
@@ -340,7 +344,7 @@ a img {
 	margin:13px 0 11px;
 }
 .body .home ul li div p a {
-	color:#97c2c5;
+	color:#111;
 	float:none;
 	font-family:exoregular;
 	font-size:12px;
@@ -348,7 +352,7 @@ a img {
 	line-height:18px;
 }
 .body .home ul li div a {
-	color:#6df2fc;
+	color:#111;
 	font-family:exoregular;
 	font-size:10px;
 	letter-spacing:.05em;
@@ -366,10 +370,11 @@ a img {
 	float:right;
 	margin:0 0 42px;
 	width:310px;
+	background-color:rgba(255,255,255,0.65);
 }
 .body .sidebar h4 {
-	background-color:rgba(255,255,255,0.25);
-	color:#FEFAFA;
+	background-color:rgba(255,255,255,0.35);
+	color:#111;
 	font-family:exobolditalic;
 	font-size:18px;
 	font-weight:400;
@@ -471,7 +476,7 @@ a img {
 	width:630px;
 }
 .body .section div h4 {
-	background-color:rgba(255,255,255,.3);
+	background-color:rgba(255,255,255,.4);
 	color:#FEFAFA;
 	font-family:exobolditalic;
 	font-size:18px;
@@ -485,12 +490,12 @@ a img {
 .body .section div:first-child ul {
 	list-style:none;
 	margin:0;
-	overflow:hidden;
+	overflow:scroll;
+	max-height:250px;
 	padding:18px 10px;
 }
 .body .section div:first-child ul li {
 	float:left;
-	margin:0 0 0 35px;
 }
 .body .section div:first-child ul li a img {
 	border:2px solid #2f5455;
@@ -595,7 +600,7 @@ a img {
 }
 .body .news ul li div h3 {
 	margin:-3px 0 0;
-	color:#f9fefe;
+	color:#111;
 	display:block;
 	float:none;
 	font-family:exobold;
@@ -812,39 +817,28 @@ a img {
 	overflow:hidden;
 }
 .body .gallery {
-	background:none #749596;
-	float:left;
-	margin:-467px 0 100px;
-	padding:0 0 32px;
-	width:630px;
+	background:none repeat scroll 0 0 transparent;
+	background-color:rgba(255,255,255,.5);
 }
-.body .gallery div ul {
+.body .gallery ul {
 	background:none repeat scroll 0 0 transparent;
 	float:right;
-	list-style:none outside none;
-	margin:0;
-	overflow:hidden;
-	padding:0 5px 0 0;
 }
-.body .gallery div ul li {
+.body .gallery ul li {
 	background:none repeat scroll 0 0 transparent;
 	float:left;
 	margin:0;
 	padding:0;
 	width:auto;
 }
-.body .gallery div ul li a {
-	color:#74C9D1;
-	font-family:Arial, Helvetica, sans-serif;
-	font-size:12px;
-	line-height:42px;
-	margin:0;
-	padding:0 6px;
-	text-decoration:none;
+.body .gallery ul li a {
+	/*Link above gallery pictures  */
 }
 .body .gallery img {
 	display:block;
-	margin:18px 0 23px 10px;
+	margin:1px 0 1px 1px;
+	height:120px;
+	width:120px;
 }
 .body .gallery ul {
 	list-style:none;
@@ -858,8 +852,7 @@ a img {
 	width:auto;
 }
 .body .gallery ul li a img {
-	border:2px solid #2f5455;
-	margin:0;
+	margin-top:10px;
 }
 .body .gallery ul.section {
 	background:url(../images/border.png) repeat-x left top;
@@ -901,7 +894,7 @@ a img {
 }
 .body .home ul li div h3 {
 	margin:0;
-	color:#f9fefe;
+	color:#111;
 	float:none;
 	font-family:exobold;
 	font-size:14px;
@@ -911,7 +904,7 @@ a img {
 	margin: 0 0 12px;
 }
 .body .sidebar ul li div h3 {
-	color:#f9fefe;
+	color:#111;
 	float:none;
 	font-family:exobold;
 	font-size:14px;
@@ -999,10 +992,9 @@ a img {
 }
 /*------------------------- Footer -------------------------*/
 .footer {
-	background:url(../images/bg-footer.jpg) repeat-x;
 	clear:both;
 	height:52px;
-	margin:42px auto 72px;
+	margin:42px auto 0px;
 	width:960px;
 }
 .footer ul {

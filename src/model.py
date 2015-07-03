@@ -19,6 +19,10 @@ def mccdata_key(mccdata_key=DEFAULT_MCCDATA):
     
     return ndb.Key('MccData', mccdata_key)
 
+class Movie(ndb.Model):
+    title = ndb.StringProperty()
+    picture = ndb.BlobProperty(default=None)
+    id = ndb.StringProperty()
 
 class User(ndb.Model):
     username = ndb.StringProperty()

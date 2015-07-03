@@ -10,6 +10,7 @@ from DataQuery import DB__populateDbWithMCCCodeData, DB__deleteAllMccData, DB__s
 from csvImport import getCsvData
 
 CATEGORIES = DB_selectAllCategories()
+'''PATH_TO_IMAGES = os.path.dirname(os.path.abspath(__file__)) + '/gallery'''
 
 JINJA_ENVIRONMENT = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
@@ -63,10 +64,19 @@ class MainPage(webapp2.RequestHandler):
         new_message.put()'''
         message_query = Message.query(
             ancestor=messages_key('Messages')).order(-Message.date)
-        messages = message_query.fetch(5) 
+        messages = message_query.fetch(5)
+        
+        images = []
+        '''listing = os.listdir(PATH_TO_IMAGES)    
+        for file in listing:
+            logging.info(file)
+            images.append(file)'''
+            
+        logging.info('*********************' + images.__str__())
         template_values = {
             'name': CURRENT_USER_NAME,
             'news' : messages,
+            'images': images,
         }
         template = JINJA_ENVIRONMENT.get_template('html/index.html')
         self.response.write(template.render(template_values))

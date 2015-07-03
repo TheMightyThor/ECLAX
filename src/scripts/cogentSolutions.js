@@ -20,7 +20,18 @@ if (atpos<1 || dotpos<atpos+2 || dotpos+2>=x.length)
 	   setCookie('login', .1) 
 	   return true;
    }
-  }
+  };
+
+function scrollerBody(){
+	  var myContainer = $('.dataContainer')
+
+	  $(myContainer).on('click', 'a', function () {
+	      var scrollTo = $(this);
+	      myContainer.animate({
+	          scrollTop: scrollTo.offset().top - myContainer.offset().top + myContainer.scrollTop()
+	      });
+	  });
+};
 
 
 function setCookie(cname,exdays)
