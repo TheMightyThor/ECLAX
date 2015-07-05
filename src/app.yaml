@@ -32,6 +32,9 @@ handlers:
 - url: /database/.*
   script: DatabaseController.app
 
+- url: /news/.*
+  script: NewsController.app
+
 - url: /.*
   script: CogentSolutions.application
 

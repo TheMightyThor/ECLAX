@@ -6,20 +6,11 @@
 <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
   <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-<!-- <script src="scripts/jquery.fixedbg.min.js">></script> -->
-  <script>
-  $(function($) {
-	  $(".page").fixedBG(); 
-	  autoAdjust: false;
-	});
-  </script>
+
 <head>
 	<meta charset="UTF-8">
 	<title>Hedgehogs Lacrosse</title>
 	<link rel="stylesheet" href="/stylesheets/style.css" type="text/css">
-	<style>
-		#profBody{color: #FFF; font-size: 1in;}
-	</style>
 </head>
 	<div class="page page-home">
 		<div class="header">
@@ -39,13 +30,13 @@
 						<a href="index">Home</a>
 					</li>
 					<li>
-						<a href="about">About</a> 
+						<a href="index">About</a> 
 					</li>
 					<li>
-						<a href="news">Calendar</a> 
+						<a href="news/">News</a> 
 					</li>
 					<li>
-						<a href="contact">Contact</a>
+						<a href="index">Contact</a>
 					</li>
 				</ul>
 			</div>
@@ -80,25 +71,17 @@
 			<div class="sidebar">
 				<h4>Upcoming Events</h4>
 				<ul>
+				{% for event in events %}
 					<li>
 						<div>
-							<h3>Featured Title One</h3>
+							<h3>{{ event.title }}</h3>
 							<p>
-								Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus dapibus fermentum elit. Suspendisse potenti. Cras eget
+								{{ event.date }}
 							</p>
-							<a href="news">Read more&#62;&#62;</a>
+							<a href="events/{{ event.id }}">Read more&#62;&#62;</a>
 						</div>
 					</li>
-					<li>
-					
-						<div>
-							<h3>Featured Title One</h3>
-							<p>
-								Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus dapibus fermentum elit. Suspendisse potenti. Cras eget
-							</p>
-							<a href="news">Read more&#62;&#62;</a>
-						</div>
-					</li>
+					{% endfor %}
 				</ul>
 				<h4>Sign-up For Updates</h4>
 				<form action="index">
@@ -112,9 +95,9 @@
 					<h4>Gallery</h4>
 					<ul>
 					
-					{% for pic in images %}
+					{% for title in imageTitles %}
 						<li>
-						<a herf="galery/{{ pic }}" ><img src="/gallery/{{ pic }}" ></a>
+						<a herf="galery/{{ pic }}" ><img src="/img?pic_title={{title}}"/></a>
 						</li>
 						{% endfor %}			
 					</ul>
@@ -126,29 +109,13 @@
 				</div>
 			</div>
 		</div>
-<!-- 		<div class="footer"> -->
-<!-- 			<div> -->
-<!-- 				<ul> -->
-<!-- 					<li> -->
-<!-- 						<a href="index">Home</a> -->
-<!-- 					</li> -->
-<!-- 					<li> -->
-<!-- 						<a href="about">About</a> -->
-<!-- 					</li> -->
-<!-- 					<li> -->
-<!-- 						<a href="#">Blog</a> -->
-<!-- 					</li> -->
-<!-- 					<li> -->
-<!-- 						<a href="contact">Contact</a> -->
-<!-- 					</li> -->
-<!-- 				</ul> -->
-<!-- 				<p> -->
-<!-- 					&#169; Copyright &#169; 2032.Company name all rights reserved -->
-<!-- 				</p> -->
-<!-- 			</div> -->
-<!-- 		</div> -->
+
 	</div>
-	
+	     <form action="/postImage?current_page=index" enctype="multipart/form-data" method="post">
+             	<div><input type="file" name="img"/></div>   
+      			<div><input value="" name="image_name"></div>
+      			<input type="submit" value="upload"></form>
+      
 	</div>
 </body>
 

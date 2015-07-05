@@ -4,7 +4,7 @@ Created on Sep 20, 2013
 @author: Theo
 '''
 from google.appengine.ext import ndb
-
+from google.appengine.ext import db
 DEFAULT_USER_NAME = "Users"
 
 DEFAULT_MESSAGE = "Messages"
@@ -19,10 +19,10 @@ def mccdata_key(mccdata_key=DEFAULT_MCCDATA):
     
     return ndb.Key('MccData', mccdata_key)
 
-class Movie(ndb.Model):
-    title = ndb.StringProperty()
-    picture = ndb.BlobProperty(default=None)
-    id = ndb.StringProperty()
+class Movie(db.Model):
+    title = db.StringProperty()
+    picture = db.BlobProperty(default=None)
+    id = db.StringProperty()
 
 class User(ndb.Model):
     username = ndb.StringProperty()

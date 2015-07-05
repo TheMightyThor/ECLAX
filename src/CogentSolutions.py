@@ -1,9 +1,10 @@
 import os
 import jinja2
 import webapp2
-from model import mccdata_key, MCCData, User, Message, messages_key, EmailMessage, email_key
-
+from model import mccdata_key, MCCData, User, Message, messages_key, EmailMessage, email_key, Movie
+import cgi
 import csv
+import urllib
 from csv import Dialect, excel
 import logging
 from DataQuery import DB__populateDbWithMCCCodeData, DB__deleteAllMccData, DB__selectMccCode, DB_selectAllDataOfMCCCodeType, DB_selectAllCategories
@@ -66,21 +67,58 @@ class MainPage(webapp2.RequestHandler):
             ancestor=messages_key('Messages')).order(-Message.date)
         messages = message_query.fetch(5)
         
-        images = []
+        
+        images = Movie.all().run(limit=10)
+        imageTitles = []
+        for image in images:
+            logging.info("id = " + image.title)
+            imageTitles.append(image.title)
         '''listing = os.listdir(PATH_TO_IMAGES)    
         for file in listing:
             logging.info(file)
             images.append(file)'''
             
-        logging.info('*********************' + images.__str__())
+        logging.info(imageTitles.__str__())
         template_values = {
             'name': CURRENT_USER_NAME,
             'news' : messages,
-            'images': images,
+            'imageTitles' : imageTitles,
+            
         }
         template = JINJA_ENVIRONMENT.get_template('html/index.html')
+       
         self.response.write(template.render(template_values))
+        #self.response.headers['Content-Type'] = 'image/png'
         
+class Image(webapp2.RequestHandler):
+    def get(self):
+        #image_query = Movie.query(ancestor=messages_key('Images')) 
+        #images = image_query.fetch(1)
+        #logging.info(images[0].title + '*****')
+        
+        #logging.info(" ID FROM REQUEST = " + urlsafe=self.request.get("pic_title"))
+        pic =  self.request.get("pic_title")
+      
+        p = Movie.all().filter('title =', pic).get()
+        #.run(limit=1):
+        #for p in images:
+            
+        if p:
+            self.response.headers['Content-Type'] = 'image/jpeg'
+            self.response.out.write(p.picture)
+        else:
+            self.response.out.write('No image')
+
+        
+class PostImage(webapp2.RequestHandler):        
+            
+        def post(self):
+            image = Movie()
+            image.title = self.request.get('image_name')       
+            image.picture = self.request.get('img')
+            image.put()
+            redirect = self.request.get("current_page")
+            self.redirect('/'+ redirect)
 class About (webapp2.RequestHandler):
     
     def get(self):
@@ -113,43 +151,7 @@ class Gallery (webapp2.RequestHandler):
         template = JINJA_ENVIRONMENT.get_template('html/gallery.html')
         self.response.write(template.render(template_values))        
         
-class News (webapp2.RequestHandler):
     
-    def post(self):
-        new_message = Message(parent=messages_key('Messages'))
-        new_message.populate(author = 'andrew',
-                             email = 'andrewtheobald43@gmail.com',
-                             title = 'test title',
-                             message = ' short message about testing the db',
-                             )
-        new_message.put()
-        
-        message_query = Message.query(
-            ancestor=messages_key('Messages')).order(-Message.date)
-        messages = message_query.fetch(5) 
-        
-        template_values = {
-            'name': CURRENT_USER_NAME,
-            'messages': messages
-        }
-        
-        template = JINJA_ENVIRONMENT.get_template('html/news.html')                   
-        self.response.write(template.render(template_values))
-    
-    def get(self):
-        
-        message_query = Message.query(
-            ancestor=messages_key('Messages')).order(-Message.date)
-        messages = message_query.fetch(5) 
-       
-        template_values = {
-            'name': CURRENT_USER_NAME,
-            'messages': messages
-        }
-        
-        template = JINJA_ENVIRONMENT.get_template('html/news.html')                   
-        self.response.write(template.render(template_values))
-        
 class ViewEmail(webapp2.RequestHandler):
     
     def get(self):
@@ -231,10 +233,11 @@ application = webapp2.WSGIApplication([
                                        ('/', MainPage),
                                        ('/login', LogIn),
                                        ('/about', About),
-                                       ('/news', News),
                                        ('/contact', Contact),
                                        ('/gallery', Gallery),
                                        ('/index', MainPage),
+                                       ('/img', Image),
+                                       ('/postImage', PostImage),
                                        ('/viewemail', ViewEmail),
                                        ('/inputData', InputData),
                                        ('/populateDb', PopulateDb),
