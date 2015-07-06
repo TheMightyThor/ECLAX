@@ -116,6 +116,23 @@ a img {
 	width:25%;
 	float:right;
 }
+.header div div#login #submit{
+	width:50%;
+	float:left;
+}
+.header div div#login a{
+	float:right;
+	background-color:rgba(0,0,40,0.7);
+	color:#fff;
+	font-family:exobolditalic;
+	font-size:15px;
+	font-weight:400;
+	height:28px;
+	letter-spacing:.05em;
+	text-indent:15px;
+	width:50%;
+	border:none;
+}
 .header div ul {
 	clear:both;
 	list-style:none;

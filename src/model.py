@@ -24,22 +24,37 @@ class Movie(db.Model):
     picture = db.BlobProperty(default=None)
     id = db.StringProperty()
 
-class User(ndb.Model):
-    username = ndb.StringProperty()
-    email = ndb.StringProperty()
-    date = ndb.DateTimeProperty(auto_now_add=True)
+class User(db.Model):
+    username = db.StringProperty()
+    password = db.StringProperty()
+    email = db.StringProperty()
+    date = db.DateTimeProperty(auto_now_add=True)
+    isPlayer = db.BooleanProperty()
+    isAdmin = db.BooleanProperty()
  
 def messages_key(messages_key=DEFAULT_MESSAGE):
     
     return ndb.Key('Messages', messages_key)
+ 
+class Event(db.Model):
+    day = db.IntegerProperty()
+    month = db.IntegerProperty()
+    yaer = db.IntegerProperty()
+    title = db.StringProperty()
+
+
+class Feature(db.Model):
+    isPlayer = db.BooleanProperty()
+    isLoggedIn = db.BooleanProperty()
     
-class Message(ndb.Model):
+class Message(db.Model):
     
-    author = ndb.StringProperty()
-    email = ndb.StringProperty()
-    title = ndb.StringProperty()
-    message = ndb.StringProperty()
-    date = ndb.DateTimeProperty(auto_now_add=True)
+    author = db.StringProperty()
+    email = db.StringProperty()
+    title = db.StringProperty()
+    message = db.StringProperty()
+    internalOnly = db.BooleanProperty()
+    date = db.DateTimeProperty(auto_now_add=True)
     
 def email_key(email_key=DEFAULT_MESSAGE):
     

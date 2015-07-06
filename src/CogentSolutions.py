@@ -1,6 +1,7 @@
 import os
 import jinja2
 import webapp2
+from webapp2_extras import sessions, securecookie
 from model import mccdata_key, MCCData, User, Message, messages_key, EmailMessage, email_key, Movie
 import cgi
 import csv
@@ -9,6 +10,11 @@ from csv import Dialect, excel
 import logging
 from DataQuery import DB__populateDbWithMCCCodeData, DB__deleteAllMccData, DB__selectMccCode, DB_selectAllDataOfMCCCodeType, DB_selectAllCategories
 from csvImport import getCsvData
+
+config = {}
+config['webapp2_extras.sessions'] = {
+    'secret_key': 'my-super-secret-key',
+}
 
 CATEGORIES = DB_selectAllCategories()
 '''PATH_TO_IMAGES = os.path.dirname(os.path.abspath(__file__)) + '/gallery'''
@@ -21,20 +27,74 @@ DEFAULT_USER_NAME = 'default_user_name'
 
 CURRENT_USER_NAME = 'not correct'
 
+class BaseController (webapp2.RequestHandler):
+    def dispatch(self):
+        # Get a session store for this request.
+        self.session_store = sessions.get_store(request=self.request)
 
-class LogIn(webapp2.RequestHandler):
-    
+        try:
+            # Dispatch the request.
+            webapp2.RequestHandler.dispatch(self)
+        finally:
+            # Save all sessions.
+            self.session_store.save_sessions(self.response)
+
+    @webapp2.cached_property
+    def session(self):
+        backend = "securecookie" # default
+        return self.session_store.get_session(backend=backend)
+        # Returns a session using the default cookie key.
+        
+class NewUser(webapp2.RequestHandler):
     
     def get(self):
-                
-        template = JINJA_ENVIRONMENT.get_template('html/login.html')
+      
+        
+        template = JINJA_ENVIRONMENT.get_template('html/newuser.html')
         self.response.write(template.render())
-        self.response.set_cookie('loginCookie', '1', max_age=360, path='/', 
+        
+    def post(self):
+        newUser = User()
+        newUser.username = self.request.get('user_name')
+        newUser.email = self.request.get('email')
+        newUser.password = self.request.get('password')
+        
+        exist = User.all().filter('email', newUser.email).get()
+        
+        if exist:
+            self.response.write('Email already exists')
+            
+        else:
+            newUser.put()
+            self.response.write('Alright')
+        
+class LogIn(BaseController):
+           
+    
+    def post(self):
+        redirect = self.request.get('current_page')
+        user = User()
+        user.username =self.request.get('user_name')
+        user.password = self.request.get('password')
+        authUser = User.all().filter('username =', user.username).get()
+        
+        logging.info('Pw' + user.password + " authPW " + authUser.password)
+        if authUser:
+            if user.password == authUser.password:
+                self.response.set_cookie('loginCookie', '1', max_age=360, path='/', 
                         domain='None', secure=True)
+                
+                
+                self.redirect('/'+ redirect)
+                
+            else:
+                self.response.write('Incorrect password or username')
+            
 class MainPage(webapp2.RequestHandler):
     
     def post(self):
       
+        self.request.get_cookie
         current_user_name = self.request.get('user_name')
         current_user_email = self.request.get('email')
         newuser = User()
@@ -63,9 +123,10 @@ class MainPage(webapp2.RequestHandler):
                              message = ' short message about testing the db',
                              )
         new_message.put()'''
-        message_query = Message.query(
-            ancestor=messages_key('Messages')).order(-Message.date)
-        messages = message_query.fetch(5)
+        now = datetime.datetime.now()
+        events = Event.all().filter('month =', now.month).filter('year =', now.year).run()
+   
+        messages = Message.all().order('date').run(limit=8)
         
         
         images = Movie.all().run(limit=10)
@@ -73,17 +134,14 @@ class MainPage(webapp2.RequestHandler):
         for image in images:
             logging.info("id = " + image.title)
             imageTitles.append(image.title)
-        '''listing = os.listdir(PATH_TO_IMAGES)    
-        for file in listing:
-            logging.info(file)
-            images.append(file)'''
+
             
         logging.info(imageTitles.__str__())
         template_values = {
             'name': CURRENT_USER_NAME,
             'news' : messages,
             'imageTitles' : imageTitles,
-            
+            'events' : events,
         }
         template = JINJA_ENVIRONMENT.get_template('html/index.html')
        
@@ -236,6 +294,7 @@ application = webapp2.WSGIApplication([
                                        ('/contact', Contact),
                                        ('/gallery', Gallery),
                                        ('/index', MainPage),
+                                       ('/newuser', NewUser),
                                        ('/img', Image),
                                        ('/postImage', PostImage),
                                        ('/viewemail', ViewEmail),
@@ -243,7 +302,7 @@ application = webapp2.WSGIApplication([
                                        ('/populateDb', PopulateDb),
                                        ('/selectall', SelectAll),
                                        ('/numberCrunch', NumberCrunch),
-                                        ], debug=True)
+                                        ], debug=True, config=config)
 
 
 
