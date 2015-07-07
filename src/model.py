@@ -23,6 +23,7 @@ class Picture(db.Model):
     title = db.StringProperty()
     picture = db.BlobProperty(default=None)
     id = db.StringProperty()
+    date = db.DateTimeProperty(auto_now_add=True)
 
 class User(db.Model):
     username = db.StringProperty()

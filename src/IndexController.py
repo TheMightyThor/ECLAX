@@ -116,9 +116,9 @@ class MainPage(webapp2.RequestHandler):
         messages = Message.all().order('date').run(limit=8)
         
         feature = Feature()
-        feature.isPlayer = False
+        feature.isPlayer = True
         
-        images = Picture.all().run(limit=10)
+        images = Picture.all().order('-date').run(limit=10)
         imageTitles = []
         for image in images:
             logging.info("id = " + image.title)
@@ -243,6 +243,7 @@ application = webapp2.WSGIApplication([
                                        ('/gallery', Gallery),
                                        ('/index', MainPage),
                                        ('/newuser', NewUser),
+                                       ('/index/postimage', PostImage),
                                        ('/img', Image),                            
                                         ], debug=True, config=config)
 
