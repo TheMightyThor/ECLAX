@@ -2,30 +2,23 @@ import os
 import jinja2
 import webapp2
 from webapp2_extras import sessions, securecookie
-from model import mccdata_key, MCCData, User, Message, messages_key, EmailMessage, email_key, Movie
+from model import User, Message, EmailMessage, email_key, Picture, Feature, Event
 import cgi
+import datetime
 import csv
 import urllib
 from csv import Dialect, excel
 import logging
-from DataQuery import DB__populateDbWithMCCCodeData, DB__deleteAllMccData, DB__selectMccCode, DB_selectAllDataOfMCCCodeType, DB_selectAllCategories
-from csvImport import getCsvData
+
 
 config = {}
 config['webapp2_extras.sessions'] = {
     'secret_key': 'my-super-secret-key',
 }
 
-CATEGORIES = DB_selectAllCategories()
-'''PATH_TO_IMAGES = os.path.dirname(os.path.abspath(__file__)) + '/gallery'''
-
 JINJA_ENVIRONMENT = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
     extensions=['jinja2.ext.autoescape'])
-
-DEFAULT_USER_NAME = 'default_user_name'
-
-CURRENT_USER_NAME = 'not correct'
 
 class BaseController (webapp2.RequestHandler):
     def dispatch(self):
@@ -58,6 +51,9 @@ class NewUser(webapp2.RequestHandler):
         newUser.username = self.request.get('user_name')
         newUser.email = self.request.get('email')
         newUser.password = self.request.get('password')
+        isPlayer = self.request.get('isPlayer')
+        if isPlayer:
+            newUser.isPlayer = True
         
         exist = User.all().filter('email', newUser.email).get()
         
@@ -66,7 +62,7 @@ class NewUser(webapp2.RequestHandler):
             
         else:
             newUser.put()
-            self.response.write('Alright')
+            self.redirect('/'+ self.request.get('current_page'))
         
 class LogIn(BaseController):
            
@@ -78,7 +74,6 @@ class LogIn(BaseController):
         user.password = self.request.get('password')
         authUser = User.all().filter('username =', user.username).get()
         
-        logging.info('Pw' + user.password + " authPW " + authUser.password)
         if authUser:
             if user.password == authUser.password:
                 self.response.set_cookie('loginCookie', '1', max_age=360, path='/', 
@@ -101,13 +96,11 @@ class MainPage(webapp2.RequestHandler):
         newuser.populate(username= current_user_name,
                                     email = current_user_email)
         new_userKey = newuser.put()
-        userfromdb = new_userKey.get()    
-        global CURRENT_USER_NAME
-        CURRENT_USER_NAME = userfromdb.username
-        currentNews = ['TestTile1', 'TestTitle2', 'TestTile3']    
+        
+           
         template_values = {
             'name': CURRENT_USER_NAME,
-            'news' : currentNews,
+            
         }
         
         template = JINJA_ENVIRONMENT.get_template('html/index.html')
@@ -116,32 +109,28 @@ class MainPage(webapp2.RequestHandler):
         
                                                     
     def get(self):
-        '''new_message = Message(parent=messages_key('Messages'))
-        new_message.populate(author = 'andrew',
-                             email = 'andrewtheobald43@gmail.com',
-                             title = 'test title',
-                             message = ' short message about testing the db',
-                             )
-        new_message.put()'''
-        now = datetime.datetime.now()
+
+        now = datetime.date.today()
         events = Event.all().filter('month =', now.month).filter('year =', now.year).run()
    
         messages = Message.all().order('date').run(limit=8)
         
+        feature = Feature()
+        feature.isPlayer = False
         
-        images = Movie.all().run(limit=10)
+        images = Picture.all().run(limit=10)
         imageTitles = []
         for image in images:
             logging.info("id = " + image.title)
             imageTitles.append(image.title)
 
             
-        logging.info(imageTitles.__str__())
+    
         template_values = {
-            'name': CURRENT_USER_NAME,
             'news' : messages,
             'imageTitles' : imageTitles,
             'events' : events,
+            'feature' : feature,
         }
         template = JINJA_ENVIRONMENT.get_template('html/index.html')
        
@@ -150,16 +139,9 @@ class MainPage(webapp2.RequestHandler):
         
 class Image(webapp2.RequestHandler):
     def get(self):
-        #image_query = Movie.query(ancestor=messages_key('Images')) 
-        #images = image_query.fetch(1)
-        #logging.info(images[0].title + '*****')
-        
-        #logging.info(" ID FROM REQUEST = " + urlsafe=self.request.get("pic_title"))
+
         pic =  self.request.get("pic_title")
-      
-        p = Movie.all().filter('title =', pic).get()
-        #.run(limit=1):
-        #for p in images:
+        p = Picture.all().filter('title =', pic).get()
             
         if p:
             self.response.headers['Content-Type'] = 'image/jpeg'
@@ -171,46 +153,26 @@ class Image(webapp2.RequestHandler):
 class PostImage(webapp2.RequestHandler):        
             
         def post(self):
-            image = Movie()
+            image = Picture()
             image.title = self.request.get('image_name')       
             image.picture = self.request.get('img')
             image.put()
             redirect = self.request.get("current_page")
             self.redirect('/'+ redirect)
-class About (webapp2.RequestHandler):
-    
-    def get(self):
-        
-        template_values = {
-            'name': CURRENT_USER_NAME,
-                        }
-         
-        template = JINJA_ENVIRONMENT.get_template('html/about.html')
-        self.response.write(template.render(template_values))
-        
-class Contact (webapp2.RequestHandler):
-        
-    def get(self):     
-        
-        template_values = {
-            'name': CURRENT_USER_NAME,
-        }
-        template = JINJA_ENVIRONMENT.get_template('html/contact.html')
-        self.response.write(template.render(template_values))
-        
+
 class Gallery (webapp2.RequestHandler):
         
     def get(self):
         
         template_values = {
-            'name': CURRENT_USER_NAME,
+           
         }
         
         template = JINJA_ENVIRONMENT.get_template('html/gallery.html')
         self.response.write(template.render(template_values))        
         
     
-class ViewEmail(webapp2.RequestHandler):
+'''class ViewEmail(webapp2.RequestHandler):
     
     def get(self):
         email_query = EmailMessage.query(
@@ -222,19 +184,10 @@ class ViewEmail(webapp2.RequestHandler):
         }
         
         template = JINJA_ENVIRONMENT.get_template('html/viewemail.html')                   
-        self.response.write(template.render(template_values))
+        self.response.write(template.render(template_values))'''
         
-class Animation(webapp2.RequestHandler):
-    
-    def get(self):
         
-        template_values = {
-                           }
-        template = JINJA_ENVIRONMENT.get_template('html/animation.html')
-        
-        self.response.write(template.render(template_values))
-        
-class PopulateDb(webapp2.RequestHandler):
+'''class PopulateDb(webapp2.RequestHandler):
     
     def get(self):
         
@@ -282,26 +235,15 @@ class NumberCrunch(webapp2.RequestHandler):
         self.response.write(template.render(template_values))   
         
     def post(self):
-        self.response.write("posted to one")
-        
-
-        
+        self.response.write("posted to one")'''      
         
 application = webapp2.WSGIApplication([
                                        ('/', MainPage),
                                        ('/login', LogIn),
-                                       ('/about', About),
-                                       ('/contact', Contact),
                                        ('/gallery', Gallery),
                                        ('/index', MainPage),
                                        ('/newuser', NewUser),
-                                       ('/img', Image),
-                                       ('/postImage', PostImage),
-                                       ('/viewemail', ViewEmail),
-                                       ('/inputData', InputData),
-                                       ('/populateDb', PopulateDb),
-                                       ('/selectall', SelectAll),
-                                       ('/numberCrunch', NumberCrunch),
+                                       ('/img', Image),                            
                                         ], debug=True, config=config)
 
 

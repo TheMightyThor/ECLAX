@@ -19,7 +19,7 @@ def mccdata_key(mccdata_key=DEFAULT_MCCDATA):
     
     return ndb.Key('MccData', mccdata_key)
 
-class Movie(db.Model):
+class Picture(db.Model):
     title = db.StringProperty()
     picture = db.BlobProperty(default=None)
     id = db.StringProperty()

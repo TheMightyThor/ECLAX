@@ -4,120 +4,20 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Contact Us</title>
-	<link rel="stylesheet" href="/stylesheets/style.css" type="text/css">
+
 </head>
-<body onload="getCookie()">
-	<div class="page page-contact">
-		<div class="header">
-			<div>
-				<a href="index" id="logo"><img src="/images/logo.png" alt="log"></a> <span></span>
-				<ul>
-					<li>
-						<a href="index">Home</a> <span>This is just a placeholder</span>
-					</li>
-					<li>
-						<a href="about">About</a> <span>This is just a placeholder</span>
-					</li>
-					<li>
-						<a href="news">News</a> <span>This is just a placeholder</span>
-					</li>
-					<li class="selected">
-						<a href="contact">Contact</a> <span>This is just a placeholder</span>
-					</li>
-				</ul>
-			</div>
-		</div>
-		<div class="body">
-			<div class="contact">
-				<div>
-					<h4>Contact Us</h4>
-				</div>
-				<form action="news" method="post">
-					<input type="text" name="author" id="name" value="Name">
-					<input type="text" name="email" id="email" value="Email Address">
-					<input type="text" name="title" id="message" value="Title">
-					<textarea name="message" id="message" cols="30" rows="10"></textarea>
-<!-- 					<label for="subscribe" class="subscribe"> -->
-<!-- 						<input type="checkbox" id="subscribe"> -->
-<!-- 						Subscribe to newsletter</label> -->
-<!-- 					<label for="agree" class="agree"> -->
-<!-- 						<input type="checkbox" id="agree"> -->
-<!-- 						I agree to the Terms and Conditions</label> -->
- 					<input type="submit" value="" id="submit">
+<body>
+				<form name="newRecuitform" action="/contact/contactmessage?current_page=/index" method="post" >
+							<input type="text" id="name" name="recuit_name" value="Name" >
+							<input type="radio" name="ncaa" value="ncaa">Played NCAA<br>
+							<input type="radio" name="mcla" value="mcla">Played MCLA<br>
+							<input type="text" name="pos" value ="Position">	  		
+				    		<input type="text" id="age" name="age" value="Age">
+				    		<input type="text" name="city" value="Current City">
+				    		<input type="email" name="email" value="Email">
+				    		<input type="text" name="phone" value="Phone">
+							<input type="submit" id="submit" value="submit">
+							
 				</form>
-			</div>
-			<div class="sidebar">
-				<h4>Featured</h4>
-				<ul>
-					<li>
-						<a href="news."><img src="/images/fireman4.jpg" alt=""></a>
-						<div>
-							<h3>Featured Title One</h3>
-							<p>
-								Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus dapibus fermentum elit. Suspendisse potenti. Cras eget
-							</p>
-							<a href="news">Read more&#62;&#62;</a>
-						</div>
-					</li>
-					<li>
-						<a href="newsl"><img src="/images/fireman5.jpg" alt=""></a>
-						<div>
-							<h3>Featured Title One</h3>
-							<p>
-								Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus dapibus fermentum elit. Suspendisse potenti. Cras eget
-							</p>
-							<a href="news">Read more&#62;&#62;</a>
-						</div>
-					</li>
-				</ul>
-				<h4>Sign-up For Updates</h4>
-				<form action="index">
-					<input type="text" onclick="this.value='';" onfocus="this.select()" onblur="this.value=!this.value?'Enter e-mail address':this.value;" value="Enter e-mail address">
-					<input type="submit" value="">
-				</form>
-			</div>
-			<div class="section">
-				<div>
-					<h4>Gallery</h4>
-					<ul>
-						<li>
-							<a href="gallery"><img src="/images/fireman1.jpg" alt=""></a>
-						</li>
-						<li>
-							<a href="gallery"><img src="/images/fireman2.jpg" alt=""></a>
-						</li>
-						<li>
-							<a href="gallery"><img src="/images/fireman3.jpg" alt=""></a>
-						</li>
-					</ul>
-				</div>
-				<div class="connect">
-					<h4>Social</h4>
-					<a href="http://freewebsitetemplates.com/go/twitter/" id="twitter">twitter</a> <a href="http://freewebsitetemplates.com/go/facebook/" id="fb">fb</a> <a href="http://freewebsitetemplates.com/go/googleplus/" id="googleplus">google+</a> <a href="http://freewebsitetemplates.com/go/youtube/" id="vimeo">vimeo</a>
-				</div>
-			</div>
-		</div>
-		<div class="footer">
-			<div>
-				<ul>
-					<li>
-						<a href="index">Home</a>
-					</li>
-					<li>
-						<a href="about">About</a>
-					</li>
-					<li>
-						<a href="#">Blog</a>
-					</li>
-					<li>
-						<a href="contact">Contact</a>
-					</li>
-				</ul>
-				<p>
-					&#169; Copyright &#169; 2032.Company name all rights reserved
-				</p>
-			</div>
-		</div>
-	</div>
 </body>
 </html>

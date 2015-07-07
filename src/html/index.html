@@ -30,13 +30,13 @@
 						<a href="index">Home</a>
 					</li>
 					<li>
-						<a href="index">About</a> 
+						<a href="/about/">About</a> 
 					</li>
 					<li>
 						<a href="news/">News</a> 
 					</li>
 					<li>
-						<a href="index">Contact</a>
+						<a href="/contact/">Contact</a>
 					</li>
 				</ul>
 			</div>
@@ -74,9 +74,7 @@
 			        <caption class="cal-caption">
 			          <a href="index.html" class="prev">&laquo;</a>
 			          <a href="index.html" class="next">&raquo;</a>
-			          {% for event in events %}
-			          {{ event.month }} {{ event.year }}
-			        </caption>
+			         </caption>
 			        <tbody class="cal-body">
 			          <tr>
 			            <td class="cal-off"><a href="index.html">30</a></td>
@@ -150,12 +148,12 @@
 			<div class="section">
 				<div class="gallery">
 				
-					<h4>Gallery</h4>
+					<h4>Gallery</h4>{% if feature and feature.isPlayer %}<a href="/galery/"> Upload a photo</a>{% endif %}
 					<ul>
 					
 					{% for title in imageTitles %}
 						<li>
-						<a herf="galery/{{ pic }}" ><img src="/img?pic_title={{title}}"/></a>
+						<a href="/img?pic_title={{title}}" target="_blank" ><img src="/img?pic_title={{title}}"/></a>
 						</li>
 						{% endfor %}			
 					</ul>
@@ -167,15 +165,18 @@
 				</div>
 			</div>
 		</div>
-
 	</div>
+		{% if feature and feature.isPalyer %}
+	
+	
 	     <form action="/postImage?current_page=index" enctype="multipart/form-data" method="post">
              	<div><input type="file" name="img"/></div>   
       			<div><input value="" name="image_name"></div>
       			<input type="submit" value="upload"></form>
-      
+     
+	 {% endif %}
 	</div>
-</body>
+	</body>
 
 </html>
 {% endautoescape %}

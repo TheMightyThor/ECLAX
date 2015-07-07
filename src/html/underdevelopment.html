@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <!-- Website template by freewebsitetemplates.com -->
-{% autoescape true %}
 <html >
 <script type="text/javascript" src="scripts/cogentSolutions.js"></script>
 <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
@@ -10,7 +9,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Hedgehogs Lacrosse</title>
-	<link rel="stylesheet" href="/stylesheets/newsstyle.css" type="text/css">
+	<link rel="stylesheet" href="/stylesheets/underdevstyle.css" type="text/css">
 </head>
 	<div class="page page-news">
 		<div class="header">
@@ -29,11 +28,11 @@
 					<li>
 						<a href="../index">Home</a>
 					</li>
-					<li>
-						<a href="../index">About</a> 
-					</li>
 					<li class="selected">
-						<a href="news">News</a> 
+						<a href="/about/">About</a> 
+					</li>
+					<li>
+						<a href="/news/">News</a> 
 					</li>
 					<li>
 						<a href="/contact/">Contact</a>
@@ -45,28 +44,10 @@
 
 		<div class="body">
 		<div id="spacer">
-		{% if feature and feature.isLoggedIn %}
-			<p><a href="/news/newmessage"> Create New News </a></p>{% endif %}
+		
+			<p>Under Development and its the end of first half.....Check back later</p>
 		</div>
-			<div class="home">
-				<h4>Latest News</h4>
-				<ul>
- 				{% for item in news %}
-					<li>
-						<a href="news"><img src="/images/teamcrest.jpg" alt="" width ="75px" height="75px" style="opacity:.7"></a>
-						<div>
-							<h3>{{ item.title }}</h3>
-							<span>{{ item.author }}</span> <br/> <span>{{ item.date }}</span>
-							<p>
-								{{ item.message }}
-							</p>
-							<a href="/messagedetail?message_id={{ item.key }}">Read more&#62;&#62;</a>
-						</div>
-					</li>
- 					{% endfor %} 
-					
-					</ul>
-			</div>
+		
 			 <p>Spacer</p></br></br></br></br></br></br>
 		</div>
 
@@ -77,4 +58,3 @@
 </body>
 
 </html>
-{% endautoescape %}

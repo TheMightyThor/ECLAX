@@ -34,9 +34,15 @@ handlers:
 
 - url: /news/.*
   script: NewsController.app
+  
+- url: /contact/.*
+  script: ContactController.app
+  
+- url: /about/.*
+  script: AboutController.app
 
 - url: /.*
-  script: CogentSolutions.application
+  script: IndexController.application
 
   
 libraries:
@@ -46,8 +52,6 @@ libraries:
   version: latest
 - name: pycrypto
   version: latest
-
-  
 
     
 inbound_services:
