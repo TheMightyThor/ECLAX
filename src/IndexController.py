@@ -9,8 +9,8 @@ import csv
 import urllib
 from csv import Dialect, excel
 import logging
-
-
+import Cookie
+import uuid
 config = {}
 config['webapp2_extras.sessions'] = {
     'secret_key': 'my-super-secret-key',
@@ -41,27 +41,42 @@ class BaseController (webapp2.RequestHandler):
 class NewUser(webapp2.RequestHandler):
     
     def get(self):
-      
+        
         
         template = JINJA_ENVIRONMENT.get_template('html/newuser.html')
         self.response.write(template.render())
         
     def post(self):
         newUser = User()
-        newUser.username = self.request.get('user_name')
         newUser.email = self.request.get('email')
-        newUser.password = self.request.get('password')
-        isPlayer = self.request.get('isPlayer')
-        if isPlayer:
-            newUser.isPlayer = True
-        
         exist = User.all().filter('email', newUser.email).get()
-        
         if exist:
             self.response.write('Email already exists')
-            
         else:
-            newUser.put()
+            newUser.username = self.request.get('user_name')
+            
+            newUser.password = self.request.get('password')
+            player_password = self.request.get('player_password')
+            if '3cH06' == player_password:
+                newUser.isPlayer = True
+            else:
+                newUser.isPlayer = False
+            
+            key = newUser.put()
+            
+            sid = str(key)
+            ck = Cookie.SimpleCookie()
+            
+            ck['EcHogs2'] = str(uuid.uuid4())
+            expires = datetime.datetime.utcnow() + datetime.timedelta(days=1) # expires in 30 days
+            ck['EcHogs2']['expires'] = expires.strftime("%a, %d %b %Y %H:%M:%S GMT")
+            ck['EcHogs2']['path'] = '/'
+            cookie_name = '='.join(('EcHogs',sid))
+            expire_time = '='.join(('expires', expires.strftime("%a, %d %b %Y %H:%M:%S GMT")))
+            ssid = ';'.join((cookie_name, expire_time))
+            self.response.headers.add_header('Set-Cookie', ssid)
+            logging.info(ck.output())
+            self.response.headers.add_header('Set-Cookie',ck.items().__str__())
             self.redirect('/'+ self.request.get('current_page'))
         
 class LogIn(BaseController):
@@ -88,8 +103,8 @@ class LogIn(BaseController):
 class MainPage(webapp2.RequestHandler):
     
     def post(self):
-      
-        self.request.get_cookie
+        
+            
         current_user_name = self.request.get('user_name')
         current_user_email = self.request.get('email')
         newuser = User()
@@ -109,39 +124,67 @@ class MainPage(webapp2.RequestHandler):
         
                                                     
     def get(self):
-
+        feature = Feature()
+        if self.request.cookies:
+            if self.request.cookies['EcHogs']:
+                sid =  self.request.cookies['EcHogs']
+                if sid:
+                    decode = Cookie.BaseCookie.value_decode(sid)
+                    logging.info(decode1)
+                    feature.isLoggedIn = True
+                    #logging.info(' ECHOGS: ' + str(sid['expires']))
+                    
+            if self.request.cookies['EcHogs2']:
+                hogs2 = self.request.cookies['EcHogs2']
+                if hogs2:
+                    decode2 = Cookie.BaseCookie.value_decode(hogs2)
+                    logging.info(decode2)
+                    expires = hogs2['expires']
+                    logging.info('echogs2 : ' + str(expires))
+        else:
+            feature.isLoggedIn = False
+        '''if cook:
+            logging.info("GOT COOk")
+        cookies = {}
+        raw_cookies = self.request.headers.get('Cookies')
+        if raw_cookies:
+            logging.info(" GOT COOKIES")
+            for cookie in raw_cookies.split(";"):
+                name, value = cookie.split("=")
+                for name, value in cookie.split("="):
+                    cookies[name] = value
+                    logging.info(cookies[name] + ' = ' + value)
+        logging.info("NO COOKIES")  ''' 
         now = datetime.date.today()
         events = Event.all().filter('month =', now.month).filter('year =', now.year).run()
    
         messages = Message.all().order('date').run(limit=8)
         
-        feature = Feature()
-        feature.isPlayer = True
         
-        images = Picture.all().order('-date').run(limit=10)
-        imageTitles = []
-        for image in images:
-            logging.info("id = " + image.title)
-            imageTitles.append(image.title)
-
-            
+        
+        
+        keys = Picture.all(keys_only=True).order('-date').run(limit=10)
+        imageKeys = []
+        for key in keys:
+            imageKeys.append(str(key))   
     
         template_values = {
             'news' : messages,
-            'imageTitles' : imageTitles,
+            'imageKeys' : imageKeys,
             'events' : events,
             'feature' : feature,
         }
         template = JINJA_ENVIRONMENT.get_template('html/index.html')
-       
+         
         self.response.write(template.render(template_values))
-        #self.response.headers['Content-Type'] = 'image/png'
+        
         
 class Image(webapp2.RequestHandler):
     def get(self):
 
-        pic =  self.request.get("pic_title")
-        p = Picture.all().filter('title =', pic).get()
+        key =  self.request.get("pic_key")
+        logging.info(" IMAGE KEY = " + key)
+        p = Picture.get(key) 
             
         if p:
             self.response.headers['Content-Type'] = 'image/jpeg'

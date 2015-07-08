@@ -1,182 +1,163 @@
 <!DOCTYPE html>
 <!-- Website template by freewebsitetemplates.com -->
 {% autoescape true %}
-<html >
+<html>
 <script type="text/javascript" src="scripts/cogentSolutions.js"></script>
 <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-  <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <head>
-	<meta charset="UTF-8">
-	<title>Hedgehogs Lacrosse</title>
-	<link rel="stylesheet" href="/stylesheets/style.css" type="text/css">
+<meta charset="UTF-8">
+<title>Hedgehogs Lacrosse</title>
+<link rel="stylesheet" href="/stylesheets/style.css" type="text/css">
 </head>
-	<div class="page page-home">
-		<div class="header">
-			<div>
-				<h1 id="logo">East Cobb Lacrosse</h1> 
-				<div id="login">
-					<form name="loginform" action="login" method="post" onsubmit="return validateForm()">
-							<input type="text" id="name" name="user_name" value="Hog" ></br>	  		
-				    		<input type="password" id="password" name="password" value="Password"></br>
-							<input type="submit" id="submit" value="Continue&#62;&#62;">
-							
-					</form>
-					<a href='newuser'>NewUser</a>
-				</div>
-				<ul>
-					<li class="selected">
-						<a href="index">Home</a>
-					</li>
-					<li>
-						<a href="/about/">About</a> 
-					</li>
-					<li>
-						<a href="news/">News</a> 
-					</li>
-					<li>
-						<a href="/contact/">Contact</a>
-					</li>
-				</ul>
-			</div>
+<div class="page page-home">
+	<div class="header">
+		<div>
+			<h1 id="logo">East Cobb Lacrosse</h1>
+			<div id="login">
+				<form name="loginform" action="login" method="post"
+					onsubmit="return validateForm()">
+					<input type="text" id="name" name="user_name" value="Hog"></br>
+					<input type="password" id="password" name="password"
+						value="Password"></br> <input type="submit" id="submit"
+						value="Continue&#62;&#62;">
+				</form> {% if not feature.isLoggedIn %} <a href='newuser'>NewUser</a> {%
+				endif %}
 		</div>
-		<div class="page">
-		<p>
-		
-		</p>
+			<ul>
+				<li class="selected"><a href="index">Home</a></li>
+				<li><a href="/about/">About</a></li>
+				<li><a href="news/">News</a></li>
+				<li><a href="/contact/">Contact</a></li>
+			</ul>
+	</div>
+</div>
+	<div class="page">
+		<p></p>
 		<div class="body">
-		<div id="spacer">
-			<p></p>
+			<div id="spacer">
+				<p></p>
 		</div>
 			<div class="home">
 				<h4>Latest News</h4>
 				<ul>
- 				{% for item in news %}
-					<li>
-						<a href="news"><img src="/images/teamcrest.jpg" alt="" width ="75px" height="75px" style="opacity:.7"></a>
+					{% for item in news %}
+					<li><a href="news"><img src="/images/teamcrest.jpg" alt=""
+							width="75px" height="75px" style="opacity: .7"></a>
 						<div>
-							<h3>{{ item.title }}</h3>
-							<span>{{ item.author }}</span> <br/> <span>{{ item.date }}</span>
-				
-							<a href="news">Read more&#62;&#62;</a>
-						</div>
-					</li>
- 					{% endfor %} 
-					
-					</ul>
-			</div>
+							<h3>{{ item.title }}</h3> <span>{{ item.author }}</span> <br />
+							<span>{{ item.date }}</span> <a href="news">Read
+								more&#62;&#62;</a>
+					</div></li> {% endfor %}
+				</ul>
+		</div>
 			<div class="sidebar">
 				<h4>Upcoming Events</h4>
 				<section class="container">
-			    <div class="cal">
-			      <table class="cal-table">
-			        <caption class="cal-caption">
-			          <a href="index.html" class="prev">&laquo;</a>
-			          <a href="index.html" class="next">&raquo;</a>
-			         </caption>
-			        <tbody class="cal-body">
-			          <tr>
-			            <td class="cal-off"><a href="index.html">30</a></td>
-			            <td><a href="index.html">1</a></td>
-			            <td><a href="index.html">2</a></td>
-			            <td class="cal-today"><a href="index.html">3</a></td>
-			            <td><a href="index.html">4</a></td>
-			            <td><a href="index.html">5</a></td>
-			            <td><a href="index.html">6</a></td>
-			          </tr>
-			          <tr>
-			            <td><a href="index.html">7</a></td>
-			            <td class="cal-selected"><a href="index.html">8</a></td>
-			            <td><a href="index.html">9</a></td>
-			            <td><a href="index.html">10</a></td>
-			            <td><a href="index.html">11</a></td>
-			            <td class="cal-check"><a href="index.html">12</a></td>
-			            <td><a href="index.html">13</a></td>
-			          </tr>
-			          <tr>
-			            <td><a href="index.html">14</a></td>
-			            <td><a href="index.html">15</a></td>
-			            <td><a href="index.html">16</a></td>
-			            <td class="cal-check"><a href="index.html">17</a></td>
-			            <td><a href="index.html">18</a></td>
-			            <td><a href="index.html">19</a></td>
-			            <td><a href="index.html">20</a></td>
-			          </tr>
-			          <tr>
-			            <td><a href="index.html">21</a></td>
-			            <td><a href="index.html">22</a></td>
-			            <td><a href="index.html">23</a></td>
-			            <td><a href="index.html">24</a></td>
-			            <td><a href="index.html">25</a></td>
-			            <td><a href="index.html">26</a></td>
-			            <td><a href="index.html">27</a></td>
-			          </tr>
-			          <tr>
-			            <td><a href="index.html">28</a></td>
-			            <td><a href="index.html">29</a></td>
-			            <td><a href="index.html">30</a></td>
-			            <td><a href="index.html">31</a></td>
-			            <td class="cal-off"><a href="index.html">1</a></td>
-			            <td class="cal-off"><a href="index.html">2</a></td>
-			            <td class="cal-off"><a href="index.html">3</a></td>
-			          </tr>
-			        </tbody>
-			      </table>
-			    </div>
-			  </section>
-							
+					<div class="cal">
+						<table class="cal-table">
+							<caption class="cal-caption">
+								<a href="index.html" class="prev">&laquo;</a> <a
+									href="index.html" class="next">&raquo;</a>
+							</caption>
+							<tbody class="cal-body">
+								<tr>
+									<td class="cal-off"><a href="index.html">30</a></td>
+									<td><a href="index.html">1</a></td>
+									<td><a href="index.html">2</a></td>
+									<td class="cal-today"><a href="index.html">3</a></td>
+									<td><a href="index.html">4</a></td>
+									<td><a href="index.html">5</a></td>
+									<td><a href="index.html">6</a></td>
+								</tr>
+								<tr>
+									<td><a href="index.html">7</a></td>
+									<td class="cal-selected"><a href="index.html">8</a></td>
+									<td><a href="index.html">9</a></td>
+									<td><a href="index.html">10</a></td>
+									<td><a href="index.html">11</a></td>
+									<td class="cal-check"><a href="index.html">12</a></td>
+									<td><a href="index.html">13</a></td>
+								</tr>
+								<tr>
+									<td><a href="index.html">14</a></td>
+									<td><a href="index.html">15</a></td>
+									<td><a href="index.html">16</a></td>
+									<td class="cal-check"><a href="index.html">17</a></td>
+									<td><a href="index.html">18</a></td>
+									<td><a href="index.html">19</a></td>
+									<td><a href="index.html">20</a></td>
+								</tr>
+								<tr>
+									<td><a href="index.html">21</a></td>
+									<td><a href="index.html">22</a></td>
+									<td><a href="index.html">23</a></td>
+									<td><a href="index.html">24</a></td>
+									<td><a href="index.html">25</a></td>
+									<td><a href="index.html">26</a></td>
+									<td><a href="index.html">27</a></td>
+								</tr>
+								<tr>
+									<td><a href="index.html">28</a></td>
+									<td><a href="index.html">29</a></td>
+									<td><a href="index.html">30</a></td>
+									<td><a href="index.html">31</a></td>
+									<td class="cal-off"><a href="index.html">1</a></td>
+									<td class="cal-off"><a href="index.html">2</a></td>
+									<td class="cal-off"><a href="index.html">3</a></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</section>
 				<ul>
-				{% for event in events %}
+					{% for event in events %}
 					<li>
 						<div>
 							<h3>{{ event.title }}</h3>
-							<p>
-								{{ event.date }}
-							</p>
-							<a href="events/{{ event.id }}">Read more&#62;&#62;</a>
-						</div>
-					</li>
-					{% endfor %}
+							<p>{{ event.date }}</p> <a href="events/{{ event.id }}">Read
+								more&#62;&#62;</a>
+					</div>
+					</li> {% endfor %}
 				</ul>
 				<h4>Sign-up For Updates</h4>
 				<form action="index">
-					<input type="text" onclick="this.value='';" onfocus="this.select()" onblur="this.value=!this.value?'Enter e-mail address':this.value;" value="Enter e-mail address" id="email">
-					<input type="submit" value="">
+					<input type="text" onclick="this.value='';" onfocus="this.select()"
+						onblur="this.value=!this.value?'Enter e-mail address':this.value;"
+						value="Enter e-mail address" id="email"> <input
+						type="submit" value="">
 				</form>
-			</div>
+		</div>
 			<div class="section">
 				<div class="gallery">
-				
-					<h4>Gallery</h4>{% if feature and feature.isPlayer %}<a href="/galery/"> Upload a photo</a>{% endif %}
+					<h4>Gallery</h4> {% if feature and feature.isPlayer %}<a
+					href="/galery/"> Upload a photo</a>{% endif %}
 					<ul>
-					
-					{% for title in imageTitles %}
-						<li>
-						<a href="/img?pic_title={{title}}" target="_blank" ><img src="/img?pic_title={{title}}"/></a>
-						</li>
-						{% endfor %}			
+						{% for key in imageKeys %}
+						<li><a href="/img?pic_key={{ key }}" target="_blank"><img
+								src="/img?pic_key={{ key }}" /></a></li> {% endfor %}
 					</ul>
-				
-				</div>
+			</div>
 				<div class="connect">
-					<h4>Social</h4>
-					<a href="http://freewebsitetemplates.com/go/twitter/" id="twitter">twitter</a> <a href="https://www.facebook.com/groups/eastcobblax/" id="fb">fb</a> <a href="http://freewebsitetemplates.com/go/googleplus/" id="googleplus">google+</a> <a href="http://freewebsitetemplates.com/go/youtube/" id="vimeo">vimeo</a>
-				</div>
+					<h4>Social</h4> <a
+					href="http://freewebsitetemplates.com/go/twitter/" id="twitter">twitter</a>
+					<a href="https://www.facebook.com/groups/eastcobblax/" id="fb">fb</a>
+					<a href="http://freewebsitetemplates.com/go/googleplus/"
+					id="googleplus">google+</a> <a
+					href="http://freewebsitetemplates.com/go/youtube/" id="vimeo">vimeo</a>
 			</div>
 		</div>
 	</div>
-
-	
-	
-	     <form action="index/postimage?current_page=index" enctype="multipart/form-data" method="post">
-             	<div><input type="file" name="img"/></div>   
-      			<div><input value="" name="image_name"></div>
-      			<input type="submit" value="upload"></form>
-     
-
-	</div>
-	</body>
-
+</div>
+	<form action="index/postimage?current_page=index"
+		enctype="multipart/form-data" method="post">
+		<div><input type="file" name="img" /></div>
+		<div><input value="" name="image_name"></div> <input
+			type="submit" value="upload">
+	</form>
+</div>
+</body>
 </html>
 {% endautoescape %}
