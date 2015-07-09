@@ -4,8 +4,19 @@ Created on Sep 21, 2013
 @author: Theo
 '''
 from google.appengine.api import mail
+from model import User
 
 
+def is_player_from_header(self):
+    if self.request.cookies:
+        if self.request.cookies['EcHogs']:
+            sid =  self.request.cookies['EcHogs']
+            if sid:
+                user = User.get(sid)
+                if user:
+                    return user.isPlayer
+    else:
+        return False    
 
 def __cleanString__(string):
     

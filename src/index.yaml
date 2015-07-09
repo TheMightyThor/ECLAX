@@ -28,6 +28,16 @@ indexes:
     direction: desc
 
 - kind: Message
+  properties:
+  - name: internal
+  - name: date
+
+- kind: Message
+  properties:
+  - name: internalOnly
+  - name: date
+
+- kind: Message
   ancestor: yes
   properties:
   - name: date

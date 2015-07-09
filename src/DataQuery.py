@@ -4,8 +4,10 @@ Created on Apr 6, 2014
 @author: Theo
 '''
 import logging
+
 from google.appengine.ext import ndb 
 from model import mccdata_key, MCCData
+
 
 def DB_selectAllDataOfMCCCodeType():
     q = MCCData.query(MCCData.mccCode == '742').get()

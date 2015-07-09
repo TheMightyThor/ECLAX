@@ -3,12 +3,14 @@ Created on Jul 6, 2015
 
 @author: Theo
 '''
-import os
-import jinja2
-import webapp2
-from model import Message, messages_key, Feature, User
 import logging
+import os
+
+import jinja2
+from model import Message, messages_key, Feature, User
 import services
+import webapp2
+
 
 RECUITER_EMAILS = ['andrewtheobald43@gmail.com','marshallhood@gmail.com','stdockery@gmail.com',]
 

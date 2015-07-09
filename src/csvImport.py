@@ -4,10 +4,12 @@ Created on Apr 6, 2014
 @author: Theo
 '''
 import csv
-from model import MCCData
 import logging
-from services import __cleanString__
 import os
+
+from model import MCCData
+from services import __cleanString__
+
 
 fn = os.path.join(os.path.dirname(__file__), 'TemplateInterchangeData3.csv')
 class MyClass(object):

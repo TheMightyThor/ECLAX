@@ -23,8 +23,8 @@
 					<input type="password" id="password" name="password"
 						value="Password"></br> <input type="submit" id="submit"
 						value="Continue&#62;&#62;">
-				</form> {% if not feature.isLoggedIn %} <a href='newuser'>NewUser</a> {%
-				endif %}
+				</form> {% if not feature.isLoggedIn %} <a href='newuser'>NewUser</a> {% else %} 
+				<a href='index'></a>{% endif %}
 		</div>
 			<ul>
 				<li class="selected"><a href="index">Home</a></li>

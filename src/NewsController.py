@@ -3,12 +3,14 @@ Created on Jul 5, 2015
 
 @author: Theo
 '''
-import os
-import jinja2
-import webapp2
-from model import Message, messages_key, Feature, User
 import logging
+import os
+
+import jinja2
+from model import Message, messages_key, Feature, User
 import services
+import webapp2
+
 
 JINJA_ENVIRONMENT = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
@@ -17,21 +19,15 @@ JINJA_ENVIRONMENT = jinja2.Environment(
 class News(webapp2.RequestHandler):
     
     def get(self):
-        
-        '''new_message = Message(parent=messages_key('Messages'))
-        new_message.populate(author = 'andrew',
-                             email = 'andrewtheobald43@gmail.com',
-                             title = 'test title',
-                             message = ' short message about testing the db',
-                             )
-        new_message.put()'''
-        
         feature = Feature()
-
-        feature.isLoggedIn = True
-        messages = Message.all().order('date').run(limit=8)
-        
-        
+        isPlayer = services.is_player_from_header(self)
+        if isPlayer:
+            messages = Message.all().order('date').run(limit=8)
+            logging.info(" Is Player Getting all messages")
+            feature.isPlayer = True
+        else:
+            messages = Message.all().order('date').filter('internalOnly =', False).run(limit=8)
+            logging.info(" Is NOT player getting only exteranl messages")
         template_values = {
             'news': messages,
             'feature' : feature,
@@ -56,7 +52,9 @@ class NewMessage(webapp2.RequestHandler):
         currentPage = self.request.get('current_page')
         newMessage = Message()
         if self.request.get("internal"):
-            newMessage.internalOnly = True 
+            newMessage.internalOnly = True
+        else:
+            newMessage.internalOnly = False 
         newMessage.author = self.request.get("user_name")
         newMessage.message = self.request.get("message_area")
         newMessage.title = self.request.get("title")

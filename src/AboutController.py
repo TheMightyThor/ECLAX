@@ -3,12 +3,14 @@ Created on Jul 5, 2015
 
 @author: Theo
 '''
-import os
-import jinja2
-import webapp2
-from model import Message, messages_key, Feature, User
 import logging
+import os
+
+import jinja2
+from model import Message, messages_key, Feature, User
 import services
+import webapp2
+
 
 JINJA_ENVIRONMENT = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),

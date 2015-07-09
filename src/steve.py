@@ -6,10 +6,12 @@ Created on Sep 23, 2013
 STEVE_EMAIL = 'stephentriphahn@gmail.com'
 
 import logging
-import webapp2
+
 from google.appengine.ext.webapp.mail_handlers import InboundMailHandler
 from model import EmailMessage
 from services import forward_email_to_owner
+import webapp2
+
 
 class LogSenderHandler(InboundMailHandler):
     

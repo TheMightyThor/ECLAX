@@ -3,8 +3,10 @@ Created on Sep 20, 2013
 
 @author: Theo
 '''
-from google.appengine.ext import ndb
 from google.appengine.ext import db
+from google.appengine.ext import ndb
+
+
 DEFAULT_USER_NAME = "Users"
 
 DEFAULT_MESSAGE = "Messages"

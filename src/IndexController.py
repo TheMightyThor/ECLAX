@@ -1,16 +1,22 @@
-import os
-import jinja2
-import webapp2
-from webapp2_extras import sessions, securecookie
-from model import User, Message, EmailMessage, email_key, Picture, Feature, Event
-import cgi
-import datetime
-import csv
-import urllib
-from csv import Dialect, excel
-import logging
 import Cookie
+import cgi
+from csv import Dialect, excel
+import csv
+import datetime
+import logging
+import os
+import urllib
 import uuid
+
+import jinja2
+from model import User, Message, EmailMessage, email_key, Picture, Feature, Event
+import webapp2
+import security
+from warnings import catch_warnings
+import functions
+
+
+
 config = {}
 config['webapp2_extras.sessions'] = {
     'secret_key': 'my-super-secret-key',
@@ -20,7 +26,7 @@ JINJA_ENVIRONMENT = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
     extensions=['jinja2.ext.autoescape'])
 
-class BaseController (webapp2.RequestHandler):
+'''class BaseController (webapp2.RequestHandler):
     def dispatch(self):
         # Get a session store for this request.
         self.session_store = sessions.get_store(request=self.request)
@@ -36,7 +42,7 @@ class BaseController (webapp2.RequestHandler):
     def session(self):
         backend = "securecookie" # default
         return self.session_store.get_session(backend=backend)
-        # Returns a session using the default cookie key.
+        # Returns a session using the default cookie key.'''
         
 class NewUser(webapp2.RequestHandler):
     
@@ -54,57 +60,47 @@ class NewUser(webapp2.RequestHandler):
             self.response.write('Email already exists')
         else:
             newUser.username = self.request.get('user_name')
-            
-            newUser.password = self.request.get('password')
+            pw = self.request.get('password')
+            newUser.password = security.generate_password_hash(pw, method='sha1', length=22, pepper='3cH06')
             player_password = self.request.get('player_password')
+            
             if '3cH06' == player_password:
-                newUser.isPlayer = True
+                newUser.isPlayer = True                
             else:
                 newUser.isPlayer = False
             
             key = newUser.put()
             
             sid = str(key)
-            ck = Cookie.SimpleCookie()
             
-            ck['EcHogs2'] = str(uuid.uuid4())
-            expires = datetime.datetime.utcnow() + datetime.timedelta(days=1) # expires in 30 days
-            ck['EcHogs2']['expires'] = expires.strftime("%a, %d %b %Y %H:%M:%S GMT")
-            ck['EcHogs2']['path'] = '/'
             cookie_name = '='.join(('EcHogs',sid))
-            expire_time = '='.join(('expires', expires.strftime("%a, %d %b %Y %H:%M:%S GMT")))
-            ssid = ';'.join((cookie_name, expire_time))
-            self.response.headers.add_header('Set-Cookie', ssid)
-            logging.info(ck.output())
-            self.response.headers.add_header('Set-Cookie',ck.items().__str__())
+            self.response.headers.add_header('Set-Cookie',cookie_name)
             self.redirect('/'+ self.request.get('current_page'))
         
-class LogIn(BaseController):
+class LogIn(webapp2.RequestHandler):
            
     
     def post(self):
         redirect = self.request.get('current_page')
         user = User()
         user.username =self.request.get('user_name')
-        user.password = self.request.get('password')
+        password = self.request.get('password')
+        logging.info('User Name = ' +user.username)
         authUser = User.all().filter('username =', user.username).get()
-        
-        if authUser:
-            if user.password == authUser.password:
-                self.response.set_cookie('loginCookie', '1', max_age=360, path='/', 
-                        domain='None', secure=True)
-                
-                
+        if authUser is not None:
+            logging.info('Authuser pw ' + authUser.password)
+            logging.info('NEW PASSWORD' + security.generate_password_hash(password, method='sha1', length=22, pepper='3cH06'))
+            pwHash = security.check_password_hash(password, authUser.password, '3cH06')
+            if pwHash:
+                logging.info("HashesMatch")                  
                 self.redirect('/'+ redirect)
-                
-            else:
-                self.response.write('Incorrect password or username')
+                    
+        else:
+            self.response.write('Incorrect password or username')
             
 class MainPage(webapp2.RequestHandler):
     
-    def post(self):
-        
-            
+    def post(self):            
         current_user_name = self.request.get('user_name')
         current_user_email = self.request.get('email')
         newuser = User()
@@ -114,7 +110,7 @@ class MainPage(webapp2.RequestHandler):
         
            
         template_values = {
-            'name': CURRENT_USER_NAME,
+          
             
         }
         
@@ -125,43 +121,26 @@ class MainPage(webapp2.RequestHandler):
                                                     
     def get(self):
         feature = Feature()
-        if self.request.cookies:
-            if self.request.cookies['EcHogs']:
+        if self.request.cookies is not None:
+            if self.request.cookies['EcHogs'] is not None:
                 sid =  self.request.cookies['EcHogs']
-                if sid:
-                    decode = Cookie.BaseCookie.value_decode(sid)
-                    logging.info(decode1)
+                if sid:                
                     feature.isLoggedIn = True
-                    #logging.info(' ECHOGS: ' + str(sid['expires']))
-                    
-            if self.request.cookies['EcHogs2']:
-                hogs2 = self.request.cookies['EcHogs2']
-                if hogs2:
-                    decode2 = Cookie.BaseCookie.value_decode(hogs2)
-                    logging.info(decode2)
-                    expires = hogs2['expires']
-                    logging.info('echogs2 : ' + str(expires))
+                    logging.info(sid + ' IS logged in')
+            
+    
+            try:
+                other = self.request.cookies['othercookie']
+            except:
+                logging.info("NO other cookie")            
+                          
         else:
             feature.isLoggedIn = False
-        '''if cook:
-            logging.info("GOT COOk")
-        cookies = {}
-        raw_cookies = self.request.headers.get('Cookies')
-        if raw_cookies:
-            logging.info(" GOT COOKIES")
-            for cookie in raw_cookies.split(";"):
-                name, value = cookie.split("=")
-                for name, value in cookie.split("="):
-                    cookies[name] = value
-                    logging.info(cookies[name] + ' = ' + value)
-        logging.info("NO COOKIES")  ''' 
+       
         now = datetime.date.today()
         events = Event.all().filter('month =', now.month).filter('year =', now.year).run()
    
         messages = Message.all().order('date').run(limit=8)
-        
-        
-        
         
         keys = Picture.all(keys_only=True).order('-date').run(limit=10)
         imageKeys = []
@@ -183,7 +162,7 @@ class Image(webapp2.RequestHandler):
     def get(self):
 
         key =  self.request.get("pic_key")
-        logging.info(" IMAGE KEY = " + key)
+        
         p = Picture.get(key) 
             
         if p:

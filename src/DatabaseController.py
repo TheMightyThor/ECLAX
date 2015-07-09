@@ -4,10 +4,12 @@ Created on Apr 6, 2014
 @author: Theo
 '''
 import os
-import jinja2
-import webapp2
+
 from DataQuery import DB__deleteAllMccData, DB__populateDbWithMCCCodeData, DB__selectAllMCCCodes, DB__selectMccCode
 from csvImport import getCsvData
+import jinja2
+import webapp2
+
 
 JINJA_ENVIRONMENT = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),

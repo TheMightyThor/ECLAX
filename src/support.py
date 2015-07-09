@@ -13,10 +13,12 @@ BRIAN_EMAIL = 'brossetti1@gmail.com'
 ANDREW_EMAIL = 'andrewtheobald43@gmail.com'
 
 import logging
-import webapp2
+
 from google.appengine.ext.webapp.mail_handlers import InboundMailHandler
 from model import EmailMessage, email_key
 from services import forward_email_to_owner
+import webapp2
+
 
 class LogSenderHandler(InboundMailHandler):
     
