@@ -6,14 +6,14 @@ Created on Jul 5, 2015
 import logging
 import os
 
-import jinja2
-from model import Message, messages_key, Feature, User
-import services
+import jinja2 
+from hog_functions import services
 import webapp2
+from hog_models.model import User, Message, Picture, Feature, Event
 
 
 JINJA_ENVIRONMENT = jinja2.Environment(
-    loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
+    loader=jinja2.FileSystemLoader(os.path.join( os.path.dirname ( __file__), os.path.pardir)),
     extensions=['jinja2.ext.autoescape'])
 
 class About(webapp2.RequestHandler):
@@ -39,7 +39,7 @@ class About(webapp2.RequestHandler):
             'feature' : feature,
         }
         
-        template = JINJA_ENVIRONMENT.get_template('html/underdevelopment.html')                   
+        template = JINJA_ENVIRONMENT.get_template('/html/underdevelopment.html')                   
         self.response.write(template.render(template_values))
     
 

@@ -33,16 +33,16 @@ handlers:
   script: DatabaseController.app
 
 - url: /news/.*
-  script: NewsController.app
+  script: hog_controllers.NewsController.app
   
 - url: /contact/.*
   script: ContactController.app
   
 - url: /about/.*
-  script: AboutController.app
+  script: hog_controllers.AboutController.app
 
 - url: /.*
-  script: IndexController.application
+  script: hog_controllers.IndexController.application
 
   
 libraries:

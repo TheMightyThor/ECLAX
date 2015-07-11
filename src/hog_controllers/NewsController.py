@@ -7,8 +7,8 @@ import logging
 import os
 
 import jinja2
-from model import Message, messages_key, Feature, User
-import services
+from hog_models.model import Message, messages_key, Feature, User
+from hog_functions import services
 import webapp2
 
 

@@ -4,7 +4,7 @@ Created on Sep 21, 2013
 @author: Theo
 '''
 from google.appengine.api import mail
-from model import User
+from hog_models.model import User
 
 
 def is_player_from_header(self):

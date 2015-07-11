@@ -19,9 +19,8 @@
 			<div id="login">
 				<form name="loginform" action="login" method="post"
 					onsubmit="return validateForm()">
-					<input type="text" id="name" name="user_name" value="Hog"></br>
-					<input type="password" id="password" name="password"
-						value="Password"></br> <input type="submit" id="submit"
+					<input type="text" id="name" name="user_name" value="Hog" onclick="this.value='';" onfocus="this.select()"></br>
+					<input type="password" id="password" name="password" onclick="this.value='';" onfocus="this.select()" value="Password"></br> <input type="submit" id="submit"
 						value="Continue&#62;&#62;">
 				</form> {% if not feature.isLoggedIn %} <a href='newuser'>NewUser</a> {% else %} 
 				<a href='index'></a>{% endif %}

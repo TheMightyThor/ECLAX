@@ -1,19 +1,13 @@
-import Cookie
-import cgi
-from csv import Dialect, excel
-import csv
 import datetime
 import logging
 import os
-import urllib
-import uuid
 
 import jinja2
-from model import User, Message, EmailMessage, email_key, Picture, Feature, Event
+from hog_models.model import User, Message, EmailMessage, email_key, Picture, Feature, Event
 import webapp2
 import security
-from warnings import catch_warnings
-import functions
+from hog_functions import hog_cookies
+
 
 
 
@@ -23,7 +17,7 @@ config['webapp2_extras.sessions'] = {
 }
 
 JINJA_ENVIRONMENT = jinja2.Environment(
-    loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
+    loader=jinja2.FileSystemLoader(os.path.join( os.path.dirname ( __file__), os.path.pardir)),
     extensions=['jinja2.ext.autoescape'])
 
 '''class BaseController (webapp2.RequestHandler):
@@ -88,13 +82,13 @@ class LogIn(webapp2.RequestHandler):
         logging.info('User Name = ' +user.username)
         authUser = User.all().filter('username =', user.username).get()
         if authUser is not None:
-            logging.info('Authuser pw ' + authUser.password)
-            logging.info('NEW PASSWORD' + security.generate_password_hash(password, method='sha1', length=22, pepper='3cH06'))
             pwHash = security.check_password_hash(password, authUser.password, '3cH06')
             if pwHash:
-                logging.info("HashesMatch")                  
+                hog_cookies.set_logged_in_cookie(self, authUser.key)
+                
                 self.redirect('/'+ redirect)
-                    
+            else:
+                self.response.write('Incorrect password or username')
         else:
             self.response.write('Incorrect password or username')
             
@@ -114,15 +108,15 @@ class MainPage(webapp2.RequestHandler):
             
         }
         
-        template = JINJA_ENVIRONMENT.get_template('html/index.html')
+        template = JINJA_ENVIRONMENT.get_template('/html/index.html')
         self.response.write(template.render(template_values))
         
         
                                                     
     def get(self):
         feature = Feature()
-        if self.request.cookies is not None:
-            if self.request.cookies['EcHogs'] is not None:
+        if self.request.cookies:
+            if self.request.cookies['EcHogs']:
                 sid =  self.request.cookies['EcHogs']
                 if sid:                
                     feature.isLoggedIn = True
@@ -153,7 +147,8 @@ class MainPage(webapp2.RequestHandler):
             'events' : events,
             'feature' : feature,
         }
-        template = JINJA_ENVIRONMENT.get_template('html/index.html')
+        
+        template = JINJA_ENVIRONMENT.get_template( "/html/index.html")
          
         self.response.write(template.render(template_values))
         

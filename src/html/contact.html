@@ -7,17 +7,16 @@
 
 </head>
 <body>
-				<form name="newRecuitform" action="/contact/contactmessage?current_page=/index" method="post" >
-							<input type="text" id="name" name="recuit_name" value="Name" >
-							<input type="radio" name="ncaa" value="ncaa">Played NCAA<br>
-							<input type="radio" name="mcla" value="mcla">Played MCLA<br>
-							<input type="text" name="pos" value ="Position">	  		
-				    		<input type="text" id="age" name="age" value="Age">
-				    		<input type="text" name="city" value="Current City">
-				    		<input type="email" name="email" value="Email">
-				    		<input type="text" name="phone" value="Phone">
-							<input type="submit" id="submit" value="submit">
-							
-				</form>
+	<form name="newRecuitform" action="/contact/contactmessage?current_page=/index" method="post" >
+		<input type="text" id="name" name="recuit_name" value="Name" onclick="this.value='';" onfocus="this.select()" >
+		<input type="radio" name="ncaa" value="ncaa">Played NCAA<br>
+		<input type="radio" name="mcla" value="mcla">Played MCLA<br>
+		<input type="text" name="pos" value ="Position" onclick="this.value='';" onfocus="this.select()">	  		
+  		<input type="text" id="age" name="age" value="Age" onclick="this.value='';" onfocus="this.select()">
+  		<input type="text" name="city" value="Current City" onclick="this.value='';" onfocus="this.select()">
+  		<input type="email" name="email" value="Email" onclick="this.value='';" onfocus="this.select()">
+  		<input type="text" name="phone" value="Phone" onclick="this.value='';" onfocus="this.select()">
+		<input type="submit" id="submit" value="submit">
+	</form>
 </body>
 </html>
