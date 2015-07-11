@@ -36,7 +36,7 @@ handlers:
   script: hog_controllers.NewsController.app
   
 - url: /contact/.*
-  script: ContactController.app
+  script: hog_controllers.ContactController.app
   
 - url: /about/.*
   script: hog_controllers.AboutController.app

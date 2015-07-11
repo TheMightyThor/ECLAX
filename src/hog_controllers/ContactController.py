@@ -7,15 +7,15 @@ import logging
 import os
 
 import jinja2
-from model import Message, messages_key, Feature, User
-import services
+from hog_models.model import Message, messages_key, Feature, User
+from hog_functions import services
 import webapp2
 
 
 RECUITER_EMAILS = ['andrewtheobald43@gmail.com','marshallhood@gmail.com','stdockery@gmail.com',]
 
 JINJA_ENVIRONMENT = jinja2.Environment(
-    loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
+    loader=jinja2.FileSystemLoader(os.path.join( os.path.dirname ( __file__), os.path.pardir)),
     extensions=['jinja2.ext.autoescape'])
 
 

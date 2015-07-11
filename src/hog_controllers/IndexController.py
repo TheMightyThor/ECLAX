@@ -8,9 +8,6 @@ import webapp2
 import security
 from hog_functions import hog_cookies
 
-
-
-
 config = {}
 config['webapp2_extras.sessions'] = {
     'secret_key': 'my-super-secret-key',
@@ -115,22 +112,7 @@ class MainPage(webapp2.RequestHandler):
                                                     
     def get(self):
         feature = Feature()
-        if self.request.cookies:
-            if self.request.cookies['EcHogs']:
-                sid =  self.request.cookies['EcHogs']
-                if sid:                
-                    feature.isLoggedIn = True
-                    logging.info(sid + ' IS logged in')
-            
-    
-            try:
-                other = self.request.cookies['othercookie']
-            except:
-                logging.info("NO other cookie")            
-                          
-        else:
-            feature.isLoggedIn = False
-       
+        feature.isLoggedIn = hog_cookies.get_logged_in_cookie(self)
         now = datetime.date.today()
         events = Event.all().filter('month =', now.month).filter('year =', now.year).run()
    

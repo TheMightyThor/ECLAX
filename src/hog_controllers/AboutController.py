@@ -7,9 +7,9 @@ import logging
 import os
 
 import jinja2 
-from hog_functions import services
+from hog_functions import services, hog_cookies
 import webapp2
-from hog_models.model import User, Message, Picture, Feature, Event
+from hog_models.model import User, Picture, Feature
 
 
 JINJA_ENVIRONMENT = jinja2.Environment(
@@ -19,27 +19,17 @@ JINJA_ENVIRONMENT = jinja2.Environment(
 class About(webapp2.RequestHandler):
     
     def get(self):
-        
-        '''new_message = Message(parent=messages_key('Messages'))
-        new_message.populate(author = 'andrew',
-                             email = 'andrewtheobald43@gmail.com',
-                             title = 'test title',
-                             message = ' short message about testing the db',
-                             )
-        new_message.put()'''
-        
-        feature = Feature()
 
-        feature.isLoggedIn = True
-        messages = Message.all().order('date').run(limit=8)
-        
-        
+        feature = Feature()
+        feature.isLoggedIn = hog_cookies.get_logged_in_cookie(self)
+        logging.info('Feature logged in = '+ str(feature.isLoggedIn))
+        players = User.all().filter('isPlayer =', True).run()        
         template_values = {
-            'news': messages,
+            'players': players,
             'feature' : feature,
         }
         
-        template = JINJA_ENVIRONMENT.get_template('/html/underdevelopment.html')                   
+        template = JINJA_ENVIRONMENT.get_template('html/about.html')                   
         self.response.write(template.render(template_values))
     
 
