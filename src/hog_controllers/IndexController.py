@@ -3,7 +3,7 @@ import logging
 import os
 
 import jinja2
-from hog_models.model import User, Message, EmailMessage, email_key, Picture, Feature, Event
+from hog_models.model import User, Message, Picture, Feature, Event
 import webapp2
 import security
 from hog_functions import hog_cookies
@@ -78,10 +78,11 @@ class LogIn(webapp2.RequestHandler):
         password = self.request.get('password')
         logging.info('User Name = ' +user.username)
         authUser = User.all().filter('username =', user.username).get()
+        key = authUser.key()
         if authUser is not None:
             pwHash = security.check_password_hash(password, authUser.password, '3cH06')
             if pwHash:
-                hog_cookies.set_logged_in_cookie(self, authUser.key)
+                hog_cookies.set_logged_in_cookie(self, str(key))
                 
                 self.redirect('/'+ redirect)
             else:
@@ -97,12 +98,9 @@ class MainPage(webapp2.RequestHandler):
         newuser = User()
         newuser.populate(username= current_user_name,
                                     email = current_user_email)
-        new_userKey = newuser.put()
-        
-           
+        new_userKey = newuser.put()           
         template_values = {
           
-            
         }
         
         template = JINJA_ENVIRONMENT.get_template('/html/index.html')
@@ -113,6 +111,9 @@ class MainPage(webapp2.RequestHandler):
     def get(self):
         feature = Feature()
         feature.isLoggedIn = hog_cookies.get_logged_in_cookie(self)
+        user_key = hog_cookies.get_logged_in_cookie_user_id(self)
+        if user_key is not None:
+            feature.isPlayer = User.get(user_key).isPlayer
         now = datetime.date.today()
         events = Event.all().filter('month =', now.month).filter('year =', now.year).run()
    
