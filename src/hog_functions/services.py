@@ -58,3 +58,10 @@ def email_user(email_address, user_name, message, subject):
                    subject = subject,
                    body = message)
 
+'''T-Mobile: phonenumber@tmomail.net
+Virgin Mobile: phonenumber@vmobl.com
+Cingular: phonenumber@cingularme.com
+AT&T: phonenumber@txt.att.net
+Sprint: phonenumber@messaging.sprintpcs.com
+Verizon: phonenumber@vtext.com
+Nextel: phonenumber@messaging.nextel.com'''

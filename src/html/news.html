@@ -16,21 +16,25 @@
 		<div class="header">
 			<div>
 				<h1 id="logo">East Cobb Lacrosse</h1> 
-				<div id="login">
-					<form name="loginform" action="index" method="post" onsubmit="return validateForm()">
-
+				{% if not feature.isLoggedIn %}
+					<div id="login">
+						<form name="loginform" action="index" method="post" onsubmit="return validateForm()">
 							<input type="text" id="name" name="user_name" value="Hog" ></br>	  		
 				    		<input type="text" id="email" name="email" value="Password"></br>
 							<input type="submit" id="submit" value="Continue&#62;&#62;">
-
-					</form>
-				</div>
+						</form>
+					</div>
+				{% else %}
+				<div id="headerteamcrest">
+					<img src="/images/teamcrest.jpg">
+					</div>
+					{% endif %}
 				<ul>
 					<li>
-						<a href="../index">Home</a>
+						<a href="/index">Home</a>
 					</li>
 					<li>
-						<a href="/About/">About</a> 
+						<a href="/about/">About</a> 
 					</li>
 					<li class="selected">
 						<a href="news">News</a> 
@@ -46,7 +50,7 @@
 		<div class="body">
 		<div id="spacer">
 		{% if feature and feature.isPlayer %}
-			<p><a href="/news/newmessage"> Create New News </a></p>{% endif %}
+			<p><a href="/news/newmessage"> Create New Message </a></p>{% endif %}
 		</div>
 			<div class="home">
 				<h4>Latest News</h4>
@@ -60,7 +64,6 @@
 							<p>
 								{{ item.message }}
 							</p>
-							<a href="/messagedetail?message_id={{ item.key }}">Read more&#62;&#62;</a>
 						</div>
 					</li>
  					{% endfor %} 

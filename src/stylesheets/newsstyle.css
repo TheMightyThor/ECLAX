@@ -164,6 +164,12 @@ a img {
 	margin:100 auto 0 auto;
   
 }
+.header div div#headerteamcrest img{
+	width: 200px;
+	height: 130px;
+	float: right;
+	margin:0px 0 0;
+}
 .header div div#login select{
 	background:url(../images/bg-transparent-title.png);
 	backgournd-color:#111;

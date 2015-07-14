@@ -110,6 +110,12 @@ a img {
 	text-align:center;
 	padding-bottom:25px;
 }
+.header div div#headerteamcrest img{
+	width: 200px;
+	height: 130px;
+	float: right;
+	margin:0px 0 0;
+}
 .header div div#login {
 	line-height:16px;
 	margin:25px 0 0;

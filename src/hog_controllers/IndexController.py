@@ -45,6 +45,7 @@ class NewUser(webapp2.RequestHandler):
         
     def post(self):
         newUser = User()
+        newUser.isAdmin = False
         newUser.email = self.request.get('email')
         exist = User.all().filter('email', newUser.email).get()
         if exist:
@@ -54,7 +55,9 @@ class NewUser(webapp2.RequestHandler):
             pw = self.request.get('password')
             newUser.password = security.generate_password_hash(pw, method='sha1', length=22, pepper='3cH06')
             player_password = self.request.get('player_password')
-            
+            newUser.cell_number = self.request.get('cell_number')
+            newUser.cell_carrier  = self.request.get('cell_carrier')
+
             if '3cH06' == player_password:
                 newUser.isPlayer = True                
             else:
@@ -78,17 +81,17 @@ class LogIn(webapp2.RequestHandler):
         password = self.request.get('password')
         logging.info('User Name = ' +user.username)
         authUser = User.all().filter('username =', user.username).get()
-        key = authUser.key()
         if authUser is not None:
+            key = authUser.key()
             pwHash = security.check_password_hash(password, authUser.password, '3cH06')
             if pwHash:
                 hog_cookies.set_logged_in_cookie(self, str(key))
                 
                 self.redirect('/'+ redirect)
             else:
-                self.response.write('Incorrect password or username')
+                self.response.write('Incorrect password')
         else:
-            self.response.write('Incorrect password or username')
+            self.response.write('User does not exist')
             
 class MainPage(webapp2.RequestHandler):
     
@@ -113,7 +116,15 @@ class MainPage(webapp2.RequestHandler):
         feature.isLoggedIn = hog_cookies.get_logged_in_cookie(self)
         user_key = hog_cookies.get_logged_in_cookie_user_id(self)
         if user_key is not None:
-            feature.isPlayer = User.get(user_key).isPlayer
+            user = User.get(user_key)
+            if user is not None:
+                feature.isPlayer = user.isPlayer
+                
+            else:
+                feature.isPlayer = False
+        else:
+            feature.isPlayer = False
+                
         now = datetime.date.today()
         events = Event.all().filter('month =', now.month).filter('year =', now.year).run()
    

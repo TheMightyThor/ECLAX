@@ -7,8 +7,8 @@ import logging
 import os
 
 import jinja2
-from hog_models.model import Message, messages_key, Feature, User
-from hog_functions import services
+from hog_models.model import Message, Feature, User
+from hog_functions import services, hog_cookies
 import webapp2
 
 
@@ -26,6 +26,7 @@ class News(webapp2.RequestHandler):
             messages = Message.all().order('date').run(limit=8)
             logging.info(" Is Player Getting all messages")
             feature.isPlayer = True
+            feature.isLoggedIn = True
         else:
             messages = Message.all().order('date').filter('internalOnly =', False).run(limit=8)
             logging.info(" Is NOT player getting only exteranl messages")
@@ -55,8 +56,11 @@ class NewMessage(webapp2.RequestHandler):
         if self.request.get("internal"):
             newMessage.internalOnly = True
         else:
-            newMessage.internalOnly = False 
-        newMessage.author = self.request.get("user_name")
+            newMessage.internalOnly = False
+            
+        playerKey = hog_cookies.get_logged_in_cookie_user_id(self)
+        player = User.get(playerKey)
+        newMessage.author = player.username
         newMessage.message = self.request.get("message_area")
         newMessage.title = self.request.get("title")
        

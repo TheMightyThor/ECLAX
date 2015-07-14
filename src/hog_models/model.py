@@ -19,7 +19,8 @@ class User(db.Model):
     date = db.DateTimeProperty(auto_now_add=True)
     isPlayer = db.BooleanProperty()
     isAdmin = db.BooleanProperty()
- 
+    cell_number = db.IntegerProperty()
+    cell_carrier = db.IntegerProperty()
  
 class Event(db.Model):
     day = db.IntegerProperty()

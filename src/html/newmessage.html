@@ -5,9 +5,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-			<form name="newMessageform" action="/news/newmessage?current_page=/news/" method="post" >
-							<input type="text" id="name" name="user_name" value="Hog" onclick="this.value='';" onfocus="this.select()" ><input type="radio" name="emailAll" value="emailAll">Email All?<br>	  		
-				    		<input type="text" id="title" name="title" value="Title" onclick="this.value='';" onfocus="this.select()"><input type="radio" name="internal" value="internal">Keep Internal?<br>
+			<form name="newMessageform" action="/news/newmessage?current_page=/news/" method="post" >		
+				    		<input type="text" id="title" name="title" value="Title" onclick="this.value='';" onfocus="this.select()"><input type="radio" name="internal" value="internal">Keep Internal?<input type="radio" name="emailAll" value="emailAll">Email All?<br>
 				    		<textarea rows="40" cols="100" name="message_area"></textarea>
 							<input type="submit" id="submit" value="submit">
 							

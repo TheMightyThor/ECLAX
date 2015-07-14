@@ -16,19 +16,24 @@
 	<div class="header">
 		<div>
 			<h1 id="logo">East Cobb Lacrosse</h1>
-			<div id="login">
-				<form name="loginform" action="login" method="post"
-					onsubmit="return validateForm()">
-					<input type="text" id="name" name="user_name" value="Hog" onclick="this.value='';" onfocus="this.select()"></br>
-					<input type="password" id="password" name="password" onclick="this.value='';" onfocus="this.select()" value="Password"></br> <input type="submit" id="submit"
-						value="Continue&#62;&#62;">
-				</form> {% if not feature.isLoggedIn %} <a href='newuser'>NewUser</a> {% else %} 
-				<a href='index'></a>{% endif %}
-		</div>
+			{% if not feature.isLoggedIn %}
+					<div id="login">
+						<form name="loginform" action="index" method="post" onsubmit="return validateForm()">
+							<input type="text" id="name" name="user_name" value="Hog" ></br>	  		
+				    		<input type="text" id="email" name="email" value="Password"></br>
+							<input type="submit" id="submit" value="Continue&#62;&#62;">
+						</form>
+					</div>
+				{% else %}
+				<div id="headerteamcrest">
+					<img src="/images/teamcrest.jpg">
+					</div>
+					{% endif %}
+
 			<ul>
 				<li class="selected"><a href="index">Home</a></li>
 				<li><a href="/about/">About</a></li>
-				<li><a href="news/">News</a></li>
+				<li><a href="/news/">News</a></li>
 				<li><a href="/contact/">Contact</a></li>
 			</ul>
 	</div>
@@ -47,7 +52,7 @@
 							width="75px" height="75px" style="opacity: .7"></a>
 						<div>
 							<h3>{{ item.title }}</h3> <span>{{ item.author }}</span> <br />
-							<span>{{ item.date }}</span> <a href="news">Read
+							<span>{{ item.date }}</span> <a href="/news/">Read
 								more&#62;&#62;</a>
 					</div></li> {% endfor %}
 				</ul>
@@ -125,14 +130,12 @@
 				<form action="index">
 					<input type="text" onclick="this.value='';" onfocus="this.select()"
 						onblur="this.value=!this.value?'Enter e-mail address':this.value;"
-						value="Enter e-mail address" id="email"> <input
-						type="submit" value="">
+						value="Enter e-mail address" id="email"> <input	type="submit" value="">
 				</form>
 		</div>
 			<div class="section">
 				<div class="gallery">
-					<h4>Gallery</h4> {% if feature and feature.isPlayer %}<a
-					href="/galery/"> Upload a photo</a>{% endif %}
+					<h4>Gallery</h4> 
 					<ul>
 						{% for key in imageKeys %}
 						<li><a href="/img?pic_key={{ key }}" target="_blank"><img
@@ -151,6 +154,7 @@
 	</div>
 </div>
 {% if feature.isPlayer and feature.isLoggedIn %}
+	<h3>UPLOAD A PHOTO</h3>
 	<form action="index/postimage?current_page=index"
 		enctype="multipart/form-data" method="post">
 		<div><input type="file" name="img" /></div>
