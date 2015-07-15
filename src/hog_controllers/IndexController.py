@@ -55,8 +55,9 @@ class NewUser(webapp2.RequestHandler):
             pw = self.request.get('password')
             newUser.password = security.generate_password_hash(pw, method='sha1', length=22, pepper='3cH06')
             player_password = self.request.get('player_password')
-            newUser.cell_number = self.request.get('cell_number')
-            newUser.cell_carrier  = self.request.get('cell_carrier')
+            newUser.cell_number = int(self.request.get('cell_number'))
+            '''1ATT 2Verizon 3T-Mobile 4Sprint'''
+            newUser.cell_carrier  = int(self.request.get('cell_carrier'))
 
             if '3cH06' == player_password:
                 newUser.isPlayer = True                

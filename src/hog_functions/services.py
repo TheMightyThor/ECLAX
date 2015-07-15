@@ -5,7 +5,7 @@ Created on Sep 21, 2013
 '''
 from google.appengine.api import mail
 from hog_models.model import User
-
+import logging
 
 def is_player_from_header(self):
     if self.request.cookies:
@@ -58,6 +58,30 @@ def email_user(email_address, user_name, message, subject):
                    subject = subject,
                    body = message)
 
+def text_all_players(message_body, message_title):
+    players = User.all().filter('isPlayer =', True).run()
+    logging.info(players)
+    attPhoneNumbers = []
+    vznPhoneNumbers = []
+    tMobilePhoneNumbers = []
+    sprintPhoneNumbers = []
+    for player in players:
+        if player.cell_carrier ==1:
+            attPhoneNumbers.append(str(player.cell_number) + '@txt.att.net')
+        if player.cell_carrier ==2:
+            vznPhoneNumbers.append(str(player.cell_number) + '@vtext.com')
+        if player.cell_carrier ==3:
+            tMobilePhoneNumbers.append(str(player.cell_number) + '@tmobmail.net')
+        if player.cell_carrier ==4:
+            sprintPhoneNumbers.append(str(player.cell_number) + '@messaging.sprintpcs.com')
+    attEmail = ';'.join(attPhoneNumbers)
+    vznEmail = ';'.join(vznPhoneNumbers)
+    tMobEmail = ';'.join(tMobilePhoneNumbers)
+    sprintEmail = ';'.join(sprintPhoneNumbers)
+    emails = attEmail + ';' + vznEmail + ';' + tMobEmail + ';' + sprintEmail
+    logging.info(emails)
+    email_user(emails, 'All Hogs', message_body, message_title)
+    
 '''T-Mobile: phonenumber@tmomail.net
 Virgin Mobile: phonenumber@vmobl.com
 Cingular: phonenumber@cingularme.com

@@ -16,6 +16,7 @@
 	<div class="header">
 		<div>
 			<h1 id="logo">East Cobb Lacrosse</h1>
+				 
 			{% if not feature.isLoggedIn %}
 					<div id="login">
 						<form name="loginform" action="index" method="post" onsubmit="return validateForm()">
@@ -23,6 +24,7 @@
 				    		<input type="text" id="email" name="email" value="Password"></br>
 							<input type="submit" id="submit" value="Continue&#62;&#62;">
 						</form>
+						<a href="newuser">New User</a>
 					</div>
 				{% else %}
 				<div id="headerteamcrest">

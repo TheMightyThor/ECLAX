@@ -1,66 +1,49 @@
 {% autoescape true %}
 <!DOCTYPE html>
 <!-- Website template by freewebsitetemplates.com -->
-<html >
-
+<html>
 <head>
-	<meta charset="UTF-8">
-	<title>Hedgehogs Lacrosse</title>
-	<link rel="stylesheet" href="/stylesheets/aboutstyle.css" type="text/css">
+<meta charset="UTF-8">
+<title>Hedgehogs Lacrosse</title>
+<link rel="stylesheet" href="/stylesheets/aboutstyle.css"
+	type="text/css">
 </head>
-	<div class="page page-about">
-		<div class="header">
-			<div>
-				<h1 id="logo">East Cobb Lacrosse</h1> 
-				{% if not feature.isLoggedIn %}
-					<div id="login">
-						<form name="loginform" action="index" method="post" onsubmit="return validateForm()">
-							<input type="text" id="name" name="user_name" value="Hog" ></br>	  		
-				    		<input type="text" id="email" name="email" value="Password"></br>
-							<input type="submit" id="submit" value="Continue&#62;&#62;">
-						</form>
-					</div>
-				{% else %}
-				<div id="headerteamcrest">
-					<img src="/images/teamcrest.jpg">
-					</div>
-					{% endif %}
-				
-				
-				<ul>
-					<li>
-						<a href="../index">Home</a>
-					</li>
-					<li class="selected">
-						<a href="/about/">About</a> 
-					</li>
-					<li>
-						<a href="/news/">News</a> 
-					</li>
-					<li>
-						<a href="/contact/">Contact</a>
-					</li>
-				</ul>
-			</div>
-		</div>
-		<div class="page">
-
-		<div class="body">
-		{% for player in players %}
-			<div class="player">
-				<h2>{{ player.username }}</h2>
-			</div>
-			{% endfor %}
-		</div>
-		
-			 <p>Spacer</p></br></br></br></br></br></br>
-		</div>
-
-	
-     
+<div class="page page-about">
+	<div class="header">
+		<div>
+			<h1 id="logo">East Cobb Lacrosse</h1> {% if not feature.isLoggedIn %}
+			<div id="login">
+				<form name="loginform" action="index" method="post"
+					onsubmit="return validateForm()">
+					<input type="text" id="name" name="user_name" value="Hog"></br>
+					<input type="text" id="email" name="email" value="Password"></br>
+					<input type="submit" id="submit" value="Continue&#62;&#62;">
+				</form>
+		</div> {% else %}
+			<div id="headerteamcrest"><img src="/images/teamcrest.jpg">
+		</div> {% endif %}
+			<ul>
+				<li><a href="../index">Home</a></li>
+				<li class="selected"><a href="/about/">About</a></li>
+				<li><a href="/news/">News</a></li>
+				<li><a href="/contact/">Contact</a></li>
+			</ul>
 	</div>
+</div>
+	<div class="body">
+		<div class="home">
+			<h1>Current Roster</h1> 
+			<div class="player">
+			<table>
+				{% for player in players %}
+				<tr><td><h2>{{ player.username }}</h2></td><td>{{ player.email }}</td></tr>
+				{% endfor %}
+			</table>
+			</div> 
+	</div>
+</div>
 	
-</body>
+</div>
 
 </html>
 {% endautoescape %}

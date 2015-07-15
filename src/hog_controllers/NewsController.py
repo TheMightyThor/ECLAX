@@ -57,16 +57,17 @@ class NewMessage(webapp2.RequestHandler):
             newMessage.internalOnly = True
         else:
             newMessage.internalOnly = False
-            
+        
         playerKey = hog_cookies.get_logged_in_cookie_user_id(self)
         player = User.get(playerKey)
         newMessage.author = player.username
         newMessage.message = self.request.get("message_area")
         newMessage.title = self.request.get("title")
-       
+      
         newMessage.put()      
         emailAll = self.request.get("emailAll")
-       
+        if self.request.get('send_text'):
+            services.text_all_players(newMessage.message, newMessage.title)
         if emailAll:
             users = User.all().filter("isPlayer =", True)
             if users:
