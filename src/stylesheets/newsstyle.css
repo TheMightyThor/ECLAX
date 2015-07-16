@@ -53,7 +53,6 @@
 body {
 	margin:0;
 	font-family: 'exoregular';
-	background:url(../images/bg-body.jpg) repeat-x #B6B6B4;
 }
 #dataContainer {
     overflow: scroll;
@@ -74,7 +73,7 @@ a img {
 }
 
 .page-news {
-	background:url(../images/EcLaxTeam.jpg) no-repeat center -385px fixed;
+	background:url(../images/EcLaxTeam.jpg) no-repeat center -350px fixed;
 }
 
 /*------------------------- Header -------------------------*/
@@ -274,6 +273,7 @@ a img {
 	margin:auto auto auto auto;
 	padding:35px 0 0;
 	width:960px;
+	min-height:1000px;
 }
 .body #spacer p a {
 	background-color: rgba(255,255,255,.5);

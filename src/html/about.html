@@ -11,17 +11,22 @@
 <div class="page page-about">
 	<div class="header">
 		<div>
-			<h1 id="logo">East Cobb Lacrosse</h1> {% if not feature.isLoggedIn %}
-			<div id="login">
-				<form name="loginform" action="index" method="post"
-					onsubmit="return validateForm()">
-					<input type="text" id="name" name="user_name" value="Hog"></br>
-					<input type="text" id="email" name="email" value="Password"></br>
+			<h1 id="logo">East Cobb Lacrosse</h1> 
+			{% if not feature.isLoggedIn %}
+					<div id="login">
+				<form name="login" action="/login" method="post">
+					<input type="text" id="name" name="user_name" value="Hog" onclick="this.value='';" onfocus="this.select()"></br>
+					<input type="password" id="password" name="password" value="Password" onclick="this.value='';" onfocus="this.select()"></br>
 					<input type="submit" id="submit" value="Continue&#62;&#62;">
 				</form>
-		</div> {% else %}
-			<div id="headerteamcrest"><img src="/images/teamcrest.jpg">
-		</div> {% endif %}
+					<a href="newuser">New User</a>
+					</div>
+				{% else %}
+				<div id="headerteamcrest">
+					<img src="/images/teamcrest.jpg">
+					</div>
+					{% endif %}
+
 			<ul>
 				<li><a href="../index">Home</a></li>
 				<li class="selected"><a href="/about/">About</a></li>

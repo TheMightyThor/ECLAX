@@ -1,83 +1,62 @@
 <!DOCTYPE html>
 <!-- Website template by freewebsitetemplates.com -->
 {% autoescape true %}
-<html >
+<html>
 <script type="text/javascript" src="scripts/cogentSolutions.js"></script>
 <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-  <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <head>
-	<meta charset="UTF-8">
-	<title>Hedgehogs Lacrosse</title>
-	<link rel="stylesheet" href="/stylesheets/newsstyle.css" type="text/css">
+<meta charset="UTF-8">
+<title>Hedgehogs Lacrosse</title>
+<link rel="stylesheet" href="/stylesheets/newsstyle.css" type="text/css">
 </head>
-	<div class="page page-news">
-		<div class="header">
-			<div>
-				<h1 id="logo">East Cobb Lacrosse</h1> 
-				{% if not feature.isLoggedIn %}
-					<div id="login">
-						<form name="loginform" action="index" method="post" onsubmit="return validateForm()">
-							<input type="text" id="name" name="user_name" value="Hog" ></br>	  		
-				    		<input type="text" id="email" name="email" value="Password"></br>
-							<input type="submit" id="submit" value="Continue&#62;&#62;">
-						</form>
-					</div>
-				{% else %}
-				<div id="headerteamcrest">
-					<img src="/images/teamcrest.jpg">
-					</div>
-					{% endif %}
-				<ul>
-					<li>
-						<a href="/index">Home</a>
-					</li>
-					<li>
-						<a href="/about/">About</a> 
-					</li>
-					<li class="selected">
-						<a href="news">News</a> 
-					</li>
-					<li>
-						<a href="/contact/">Contact</a>
-					</li>
-				</ul>
-			</div>
-		</div>
-		<div class="page">
-
+<div class="page page-news">
+	<div class="header">
+		<div>
+			<h1 id="logo">East Cobb Lacrosse</h1> {% if not feature.isLoggedIn %}
+			<div id="login">
+				<form name="login" action="/login" method="post">
+					<input type="text" id="name" name="user_name" value="Hog"
+						onclick="this.value='';" onfocus="this.select()"></br> <input
+						type="password" id="password" name="password" value="Password"
+						onclick="this.value='';" onfocus="this.select()"></br> <input
+						type="submit" id="submit" value="Continue&#62;&#62;">
+				</form> <a href="newuser">New User</a>
+		</div> {% else %}
+			<div id="headerteamcrest"><img src="/images/teamcrest.jpg">
+		</div> {% endif %}
+			<ul>
+				<li><a href="/index">Home</a></li>
+				<li><a href="/about/">About</a></li>
+				<li class="selected"><a href="news">News</a></li>
+				<li><a href="/contact/">Contact</a></li>
+			</ul>
+	</div>
+</div>
 		<div class="body">
-		<div id="spacer">
-		{% if feature and feature.isPlayer %}
-			<p><a href="/news/newmessage"> Create New Message </a></p>{% endif %}
+			<div id="spacer">{% if feature and feature.isPlayer %}
+				<p><a href="/news/newmessage"> Create New Message </a></p>{% endif
+				%}
 		</div>
 			<div class="home">
 				<h4>Latest News</h4>
 				<ul>
- 				{% for item in news %}
-					<li>
-						<a href="news"><img src="/images/teamcrest.jpg" alt="" width ="75px" height="75px" style="opacity:.7"></a>
+					{% for item in news %}
+					<li><a href="news"><img src="/images/teamcrest.jpg" alt=""
+							width="75px" height="75px" style="opacity: .7"></a>
 						<div>
-							<h3>{{ item.title }}</h3>
-							<span>{{ item.author }}</span> <br/> <span>{{ item.date }}</span>
-							<p>
-								{{ item.message }}
-							</p>
-						</div>
-					</li>
- 					{% endfor %} 
-					
-					</ul>
-			</div>
-			 <p>Spacer</p></br></br></br></br></br></br>
+							<h3>{{ item.title }}</h3> <span>{{ item.author }}</span> <br /> <span>{{
+								item.date }}</span>
+							<p>{{ item.message }}</p>
+					</div></li> {% endfor %}
+				</ul>
 		</div>
-
-	
-     
 	</div>
-	
-</body>
+		<p>.</p>
+</div>
 
+</body>
 </html>
 {% endautoescape %}

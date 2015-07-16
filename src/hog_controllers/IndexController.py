@@ -56,9 +56,9 @@ class NewUser(webapp2.RequestHandler):
             newUser.password = security.generate_password_hash(pw, method='sha1', length=22, pepper='3cH06')
             player_password = self.request.get('player_password')
             newUser.cell_number = int(self.request.get('cell_number'))
-            '''1ATT 2Verizon 3T-Mobile 4Sprint'''
+            
             newUser.cell_carrier  = int(self.request.get('cell_carrier'))
-
+            logging.info(player_password)
             if '3cH06' == player_password:
                 newUser.isPlayer = True                
             else:
@@ -80,7 +80,6 @@ class LogIn(webapp2.RequestHandler):
         user = User()
         user.username =self.request.get('user_name')
         password = self.request.get('password')
-        logging.info('User Name = ' +user.username)
         authUser = User.all().filter('username =', user.username).get()
         if authUser is not None:
             key = authUser.key()
@@ -96,14 +95,13 @@ class LogIn(webapp2.RequestHandler):
             
 class MainPage(webapp2.RequestHandler):
     
-    def post(self):            
-        current_user_name = self.request.get('user_name')
-        current_user_email = self.request.get('email')
-        newuser = User()
-        newuser.populate(username= current_user_name,
-                                    email = current_user_email)
-        new_userKey = newuser.put()           
+    def post(self):
+        feature = Feature()            
+        userKey = hog_cookies.get_logged_in_cookie_user_id(self)
+        authuser = User.get(userKey)
+        feature.isAdmin = authuser.isAdmin
         template_values = {
+                           'feature', feature
           
         }
         
@@ -120,6 +118,7 @@ class MainPage(webapp2.RequestHandler):
             user = User.get(user_key)
             if user is not None:
                 feature.isPlayer = user.isPlayer
+                feature.isAdmin = user.isAdmin
                 
             else:
                 feature.isPlayer = False

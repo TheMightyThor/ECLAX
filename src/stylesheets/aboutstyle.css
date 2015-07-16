@@ -70,15 +70,11 @@ a img {
 }
 
 .page-about {
-	background:url(../images/EcLaxTeam.jpg) no-repeat center -100px fixed;
+	background:url(../images/EcLaxTeam.jpg) no-repeat center -350px fixed;
 }
 
 /*------------------------- Header -------------------------*/
-.header {
-/* 	background:url(../images/bg-header.jpg) no-repeat center top; */
-/* 	background:rbga(255,255,255,.5) c; */
-/* 	background-color:rgba(255,255,255,0.25); */
-}
+
 .header div {
 	margin:0 auto 0 auto;
 	width:960px;
@@ -269,6 +265,7 @@ a img {
 	margin:auto auto auto auto;
 	padding:35px 0 0;
 	width:960px;
+	min-height:1000px;
 }
 .body #spacer p {
 	background-color: rgba(255,255,255,.75);

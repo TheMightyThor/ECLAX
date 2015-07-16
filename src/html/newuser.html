@@ -3,13 +3,14 @@
 <head>
 <script type="text/javascript" src="scripts/cogentSolutions.js"></script>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>New Hog</title>
 </head>
 <body>
 			<form name="newUserform" action="newuser?current_page=index" method="post" onsubmit="return validateForm()">
 							<input type="text" id="name" name="user_name" value="Hog" onclick="this.value='';" onfocus="this.select()"></br>	  		
 				    		<input type="password" id="password" name="password" value="Password" onclick="this.value='';" onfocus="this.select()"></br>
 				    		<input type="text" id=email name=email value=Email onclick="this.value='';" onfocus="this.select()"></br>
+				    		<p>no spaces or "-"</p>
 				    		<input type="tel" id=cell_number name=cell_number value=Cell onclick="this.value='';" onfocus="this.select()"><select name='cell_carrier'>
   <option value="1">ATT</option>
   <option value="2">Verizon</option>
@@ -17,7 +18,7 @@
   <option value="4">Sprint</option>
 </select></br>
 				    		
-				    		<input type="text" name="player_password" value="Player Password" onclick="this.value='';" onfocus="this.select()"><br>
+				    		<input type="password" name="player_password" value="Player Password" onclick="this.value='';" onfocus="this.select()"><br>
 							<input type="submit" id="submit" value="submit">
 							
 					</form>
