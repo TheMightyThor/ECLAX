@@ -29,7 +29,7 @@
 
 			<ul>
 				<li><a href="../index">Home</a></li>
-				<li class="selected"><a href="/about/">About</a></li>
+				<li><a href="/about/">About</a></li>
 				<li><a href="/news/">News</a></li>
 				<li><a href="/contact/">Contact</a></li>
 			</ul>
@@ -37,20 +37,27 @@
 </div>
 	<div class="body">
 	<div class="aboutsummary">
-			<h1>History</h1>
-			<p> ANYONE WANT TO WRITE THIS PART UP?</p>
+		<ul>
+					{% for event in events %}
+					<li>
+						<div>
+							<h3>{{ event.title }}</h3>
+							<p>{{ event.date }}</p> <a href="/events/{{ event.id }}">Read
+								more&#62;&#62;</a>
+					</div>
+					</li> {% endfor %}
+				</ul>
 		</div>
 		<div class="home">
-		
 		{% if feature.isPlayer %}
-			<a href="/userManagement/addPlayerInfo">Add Player Info</a>
-			{% endif %}
+			
 			<h1>Current Roster</h1> 
 			<div class="player">
 			<table>
 				{% for player in players %}
 				<tr><td><h2>{{ player.username }}</h2></td><td>{{ player.playerInfo.position }}</td><td>{{ player.playerInfo.age }}</td><td>{{ player.playerInfo.college }}</td></tr>
 				{% endfor %}
+				{% endif %}
 			</table>
 			</div> 
 	</div>

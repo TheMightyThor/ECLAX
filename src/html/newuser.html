@@ -7,18 +7,18 @@
 </head>
 <body>
 			<form name="newUserform" action="newuser?current_page=index" method="post" onsubmit="return validateForm()">
-							<input type="text" id="name" name="user_name" value="Hog" onclick="this.value='';" onfocus="this.select()"></br>	  		
-				    		<input type="password" id="password" name="password" value="Password" onclick="this.value='';" onfocus="this.select()"></br>
-				    		<input type="text" id=email name=email value=Email onclick="this.value='';" onfocus="this.select()"></br>
+							<span>Name: </span><input type="text" id="name" name="user_name" value="" onclick="this.value='';" onfocus="this.select()"></br>	  		
+				    		<span>Password: </span><input type="password" id="password" name="password" value="" onclick="this.value='';" onfocus="this.select()"></br>
+				    		<span>Email: </span><input type="text" name="email" value="" onclick="this.value='';" onfocus="this.select()"></br>
 				    		<p>no spaces or "-"</p>
-				    		<input type="tel" id=cell_number name=cell_number value=Cell onclick="this.value='';" onfocus="this.select()"><select name='cell_carrier'>
+				    		<span>Cell Phone: </span><input type="tel" id=cell_number name=cell_number value="" onclick="this.value='';" onfocus="this.select()"><span>Carrier: </span><select name='cell_carrier'>
   <option value="1">ATT</option>
   <option value="2">Verizon</option>
   <option value="3">T-Mobile</option>
   <option value="4">Sprint</option>
 </select></br>
 				    		
-				    		<input type="password" name="player_password" value="Player Password" onclick="this.value='';" onfocus="this.select()"><br>
+				    		<span>Player Password: </span><input type="password" name="player_password" value="" onclick="this.value='';" onfocus="this.select()"><br>
 							<input type="submit" id="submit" value="submit">
 							
 					</form>

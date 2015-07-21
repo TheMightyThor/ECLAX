@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+			<form name="newEventForm" action="/events/createEvent" method="post" >		
+				    		<span>Event Title: </span><input type="text" name="title" value="Title" onclick="this.value='';" onfocus="this.select()"><input type="radio" name="internal" value="internal">Keep Internal?<input type="radio" name="emailAll" value="emailAll">Email All?<input type="radio" name="send_text" value="send text">Text All?<br>
+				    		<span>Details: </span><textarea rows="25" cols="50" name="details"></textarea>
+				    		<span>Date: </span><input type="text" name="date">
+				    		<span>Location: </span><input type="text" name="location">
+							<input type="submit" id="submit" value="submit">
+							
+					</form>
+</body>
+</html>

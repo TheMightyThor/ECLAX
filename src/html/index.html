@@ -62,72 +62,20 @@
 			<div class="sidebar">
 				<h4>Upcoming Events</h4>
 				<section class="container">
-					<div class="cal">
-<!-- 						<table class="cal-table"> -->
-<!-- 							<caption class="cal-caption"> -->
-<!-- 								<a href="index.html" class="prev">&laquo;</a> <a -->
-<!-- 									href="index.html" class="next">&raquo;</a> -->
-<!-- 							</caption> -->
-<!-- 							<tbody class="cal-body"> -->
-<!-- 								<tr> -->
-<!-- 									<td class="cal-off"><a href="index.html">30</a></td> -->
-<!-- 									<td><a href="index.html">1</a></td> -->
-<!-- 									<td><a href="index.html">2</a></td> -->
-<!-- 									<td class="cal-today"><a href="index.html">3</a></td> -->
-<!-- 									<td><a href="index.html">4</a></td> -->
-<!-- 									<td><a href="index.html">5</a></td> -->
-<!-- 									<td><a href="index.html">6</a></td> -->
-<!-- 								</tr> -->
-<!-- 								<tr> -->
-<!-- 									<td><a href="index.html">7</a></td> -->
-<!-- 									<td class="cal-selected"><a href="index.html">8</a></td> -->
-<!-- 									<td><a href="index.html">9</a></td> -->
-<!-- 									<td><a href="index.html">10</a></td> -->
-<!-- 									<td><a href="index.html">11</a></td> -->
-<!-- 									<td class="cal-check"><a href="index.html">12</a></td> -->
-<!-- 									<td><a href="index.html">13</a></td> -->
-<!-- 								</tr> -->
-<!-- 								<tr> -->
-<!-- 									<td><a href="index.html">14</a></td> -->
-<!-- 									<td><a href="index.html">15</a></td> -->
-<!-- 									<td><a href="index.html">16</a></td> -->
-<!-- 									<td class="cal-check"><a href="index.html">17</a></td> -->
-<!-- 									<td><a href="index.html">18</a></td> -->
-<!-- 									<td><a href="index.html">19</a></td> -->
-<!-- 									<td><a href="index.html">20</a></td> -->
-<!-- 								</tr> -->
-<!-- 								<tr> -->
-<!-- 									<td><a href="index.html">21</a></td> -->
-<!-- 									<td><a href="index.html">22</a></td> -->
-<!-- 									<td><a href="index.html">23</a></td> -->
-<!-- 									<td><a href="index.html">24</a></td> -->
-<!-- 									<td><a href="index.html">25</a></td> -->
-<!-- 									<td><a href="index.html">26</a></td> -->
-<!-- 									<td><a href="index.html">27</a></td> -->
-<!-- 								</tr> -->
-<!-- 								<tr> -->
-<!-- 									<td><a href="index.html">28</a></td> -->
-<!-- 									<td><a href="index.html">29</a></td> -->
-<!-- 									<td><a href="index.html">30</a></td> -->
-<!-- 									<td><a href="index.html">31</a></td> -->
-<!-- 									<td class="cal-off"><a href="index.html">1</a></td> -->
-<!-- 									<td class="cal-off"><a href="index.html">2</a></td> -->
-<!-- 									<td class="cal-off"><a href="index.html">3</a></td> -->
-<!-- 								</tr> -->
-<!-- 							</tbody> -->
-<!-- 						</table> -->
-					</div>
 				</section>
 				<ul>
 					{% for event in events %}
 					<li>
 						<div>
-							<h3>{{ event.title }}</h3>
-							<p>{{ event.date }}</p> <a href="events/{{ event.id }}">Read
+							<h3>{{ event.name }}</h3>
+							<p>{{ event.date }}</p> <a href="/events/event?eventname={{ event.name }}">Read
 								more&#62;&#62;</a>
 					</div>
 					</li> {% endfor %}
 				</ul>
+				{% if feature.isAdmin %}
+				<a href="/events/createEvent">Create Event</a>
+				{% endif %}
 				<h4>Sign-up For Updates</h4>
 				<form action="index">
 					<input type="text" onclick="this.value='';" onfocus="this.select()"

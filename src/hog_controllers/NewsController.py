@@ -7,7 +7,8 @@ import logging
 import os
 
 import jinja2
-from hog_models.model import Message, Feature, User
+from hog_models.model import Message, Feature
+from hog_models.UserManagement import PlayerInfo, User
 from hog_functions import services, hog_cookies
 import webapp2
 

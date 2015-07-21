@@ -9,7 +9,8 @@ import os
 import jinja2 
 from hog_functions import services, hog_cookies
 import webapp2
-from hog_models.model import User, Picture, Feature
+from hog_models.model import Picture, Feature
+from hog_models.UserManagement import PlayerInfo, User, get_user_player_info
 
 
 JINJA_ENVIRONMENT = jinja2.Environment(
@@ -23,7 +24,19 @@ class About(webapp2.RequestHandler):
         feature = Feature()
         feature.isLoggedIn = hog_cookies.get_logged_in_cookie(self)
         logging.info('Feature logged in = '+ str(feature.isLoggedIn))
-        players = User.all().filter('isPlayer =', True).run()        
+        authUserId = hog_cookies.get_logged_in_cookie_user_id(self)
+        authUser = User.get(authUserId)
+        if authUser is not None:
+            feature.isPlayer = authUser.isPlayer
+        else:
+            feature.isPlayer = False
+            
+        players = User.all().filter('isPlayer =', True).run()
+        for player in players:
+            key = str(player.key)
+            #playerInfo = get_user_player_info(key)
+            #if playerInfo is not None:
+            #    player.playerInfo = playerInfo
         template_values = {
             'players': players,
             'feature' : feature,

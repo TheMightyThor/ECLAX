@@ -3,15 +3,13 @@ import logging
 import os
 
 import jinja2
-from hog_models.model import User, Message, Picture, Feature, Event
+from hog_models.model import Message, Picture, Feature
+from hog_models.UserManagement import PlayerInfo, User
+from hog_models.GameEvent import GameEvent
 import webapp2
 import security
 from hog_functions import hog_cookies
 
-config = {}
-config['webapp2_extras.sessions'] = {
-    'secret_key': 'my-super-secret-key',
-}
 
 JINJA_ENVIRONMENT = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.join( os.path.dirname ( __file__), os.path.pardir)),
@@ -126,8 +124,7 @@ class MainPage(webapp2.RequestHandler):
             feature.isPlayer = False
                 
         now = datetime.date.today()
-        events = Event.all().filter('month =', now.month).filter('year =', now.year).run()
-   
+        events = GameEvent.all().run()
         messages = Message.all().order('date').run(limit=8)
         
         keys = Picture.all(keys_only=True).order('-date').run(limit=10)
@@ -183,71 +180,6 @@ class Gallery (webapp2.RequestHandler):
         self.response.write(template.render(template_values))        
         
     
-'''class ViewEmail(webapp2.RequestHandler):
-    
-    def get(self):
-        email_query = EmailMessage.query(
-            ancestor=email_key('Email')).order(-EmailMessage.date)
-        emails = email_query.fetch(5) 
-        template_values = {
-            'name': CURRENT_USER_NAME,
-            'emails': emails
-        }
-        
-        template = JINJA_ENVIRONMENT.get_template('html/viewemail.html')                   
-        self.response.write(template.render(template_values))'''
-        
-        
-'''class PopulateDb(webapp2.RequestHandler):
-    
-    def get(self):
-        
-        codesFromCSV = getCsvData()
-       
-        for row in codesFromCSV:
-           
-            DB__populateDbWithMCCCodeData(row)         
-                
-class SelectAll(webapp2.RequestHandler):
-    
-    def get(self):
-         
-        codes = DB_selectAllDataOfMCCCodeType()
-        
-        template_values = {
-            'codes': codes,
-        }
-        template = JINJA_ENVIRONMENT.get_template('html/result.html')                   
-        self.response.write(template.render(template_values))
-        
-    
-class InputData(webapp2.RequestHandler):
-    
-    def get(self):
-        template_values = {
-                           }
-        
-        template = JINJA_ENVIRONMENT.get_template('html/inputData.html')
-        self.response.write(template.render(template_values))   
-        
-    def post(self):
-        self.response.write("posted to one")
-        
-class NumberCrunch(webapp2.RequestHandler):
-    
-    def get(self):
-       
-        
-        template_values = {
-                           'categories' : CATEGORIES,
-                           }
-        
-        template = JINJA_ENVIRONMENT.get_template('html/numberCrunch.html')
-        self.response.write(template.render(template_values))   
-        
-    def post(self):
-        self.response.write("posted to one")'''      
-        
 application = webapp2.WSGIApplication([
                                        ('/', MainPage),
                                        ('/login', LogIn),
@@ -256,7 +188,7 @@ application = webapp2.WSGIApplication([
                                        ('/newuser', NewUser),
                                        ('/index/postimage', PostImage),
                                        ('/img', Image),                            
-                                        ], debug=True, config=config)
+                                        ], debug=True)
 
 
 

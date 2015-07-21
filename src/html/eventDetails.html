@@ -1,0 +1,29 @@
+{% autoescape true %}
+<html>
+<head></head>
+<body>
+<h2>
+{% if event %}
+{{ event.name }}
+</h2>
+{{ event.details }}
+<form name="updateRoster" action="/events/event?eventName={{ event.name }}" method="post" >
+	<input type="radio" id="isPlaying" name="isPlaying">Im Playing
+	<input type="submit" value="Update">
+</form>
+
+<h3>Roster</h3>
+<ul>
+	{% for player in roster %}
+	<li>{{ player.username }}</li>
+	{% endfor %}
+</ul>
+
+<h3> Out Roster</h3>
+	{% for outPlayer in outRoster %}
+		<li>{{ outPlayer.username }}</li>
+		{% endfor %}
+{% endif %}
+</body>
+</html>
+{% endautoescape %}

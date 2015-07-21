@@ -16,22 +16,12 @@ handlers:
   static_dir: gallery
 - url: /fonts
   static_dir: fonts
-- url: /_ah/mail/brian@.*cogenttestapp\.appspotmail\.com
-  script: brian.app
+
+- url: /_ah/mail/roster@.*eastcobblacrosse\.appspotmail\.com
+  script: hog_functions.EmailRoster.app
   login: admin
-- url: /_ah/mail/andrew@.*cogenttestapp\.appspotmail\.com
-  script: andrew.app
-  login: admin
-- url: /_ah/mail/support@.*cogenttestapp\.appspotmail\.com
-  script: support.app
-  login: admin
+
   
-- url: /_ah/spi/.*
-  script: webservice.application
-
-- url: /database/.*
-  script: DatabaseController.app
-
 - url: /news/.*
   script: hog_controllers.NewsController.app
   
@@ -40,6 +30,12 @@ handlers:
   
 - url: /about/.*
   script: hog_controllers.AboutController.app
+
+- url: /userManagement/.*
+  script: hog_controllers.UserManagementController.app
+
+- url: /events/.*
+  script: hog_controllers.EventController.app
 
 - url: /.*
   script: hog_controllers.IndexController.application
