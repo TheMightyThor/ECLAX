@@ -44,7 +44,8 @@ class NewUser(webapp2.RequestHandler):
     def post(self):
         newUser = User()
         newUser.isAdmin = False
-        newUser.email = self.request.get('email')
+        email = self.request.get('email')
+        newUser.email = email.replace('.', '')
         exist = User.all().filter('email', newUser.email).get()
         if exist:
             self.response.write('Email already exists')
